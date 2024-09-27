@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35312.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TooFastRPG", "TooFastRPG\TooFastRPG.vcxproj", "{BA463F27-2073-4394-A2A3-3211052063AD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BA463F27-2073-4394-A2A3-3211052063AD}.Debug|x64.ActiveCfg = Debug|x64
+		{BA463F27-2073-4394-A2A3-3211052063AD}.Debug|x64.Build.0 = Debug|x64
+		{BA463F27-2073-4394-A2A3-3211052063AD}.Debug|x86.ActiveCfg = Debug|Win32
+		{BA463F27-2073-4394-A2A3-3211052063AD}.Debug|x86.Build.0 = Debug|Win32
+		{BA463F27-2073-4394-A2A3-3211052063AD}.Release|x64.ActiveCfg = Release|x64
+		{BA463F27-2073-4394-A2A3-3211052063AD}.Release|x64.Build.0 = Release|x64
+		{BA463F27-2073-4394-A2A3-3211052063AD}.Release|x86.ActiveCfg = Release|Win32
+		{BA463F27-2073-4394-A2A3-3211052063AD}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {54EFD1A0-6F51-4A78-9C9B-B34EB4544C05}
+	EndGlobalSection
+EndGlobal
