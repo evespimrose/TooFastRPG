@@ -18,10 +18,7 @@
     <ClCompile Include="TooFastRPG.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Scene.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="GameScene.cpp">
+    <ClCompile Include="GameState.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Hero.cpp">
@@ -38,10 +35,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Scene.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="GameScene.h">
+    <ClInclude Include="GameState.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Hero.h">
@@ -56,7 +50,7 @@
     <ClInclude Include="Game.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="GameState.h">
+    <ClInclude Include="State.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="MainMenuState.h">

@@ -2,7 +2,7 @@
 #include "GameState.h"
 #include "stdafx.h"
 
-class MainMenuState : public GameState
+class MainMenuState : public State
 {
 public:
     void handleInput() override;

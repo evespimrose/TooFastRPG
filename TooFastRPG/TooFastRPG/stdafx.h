@@ -11,5 +11,5 @@
 #include <random>
 using namespace std;
 
-#define MAPMAXW 40;
-#define MAPMAXH 40;
+#define MAPMAXW 40
+#define MAPMAXH 40

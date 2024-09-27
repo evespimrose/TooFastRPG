@@ -27,14 +27,17 @@ void Hero::update()
 
 void Hero::render()
 {
+    system("cls");
     // 용사의 위치에 'H'를 표시
-    for (int i = 0; i < 10; i++) {
-        for (int j = 0; j < 10; j++) {
+    for (int i = 0; i < MAPMAXW; i++) 
+    {
+        for (int j = 0; j < MAPMAXH; j++) 
+        {
             if (i == y && j == x) {
-                std::cout << 'H'; // 용사 위치
+                std::cout << 'H' << " "; // 용사 위치
             }
             else {
-                std::cout << '.'; // 빈 공간
+                std::cout << '.' << " "; // 빈 공간
             }
         }
         std::cout << std::endl;

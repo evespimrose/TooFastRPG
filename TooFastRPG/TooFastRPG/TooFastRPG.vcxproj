@@ -128,21 +128,19 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="GameState.cpp" />
     <ClCompile Include="Hero.cpp" />
     <ClCompile Include="MainMenuState.cpp" />
     <ClCompile Include="Resident.cpp" />
-    <ClCompile Include="Scene.cpp" />
     <ClCompile Include="TooFastRPG.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />
-    <ClInclude Include="GameScene.h" />
     <ClInclude Include="GameState.h" />
+    <ClInclude Include="State.h" />
     <ClInclude Include="Hero.h" />
     <ClInclude Include="MainMenuState.h" />
     <ClInclude Include="Resident.h" />
-    <ClInclude Include="Scene.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
