@@ -137,6 +137,7 @@
   <ItemGroup>
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameState.h" />
+    <ClInclude Include="Observer.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="Hero.h" />
     <ClInclude Include="MainMenuState.h" />

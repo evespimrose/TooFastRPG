@@ -15,7 +15,7 @@ private:
     vector<char> backBuffer = {};
 
 public:
-    GameState(Hero* hero, std::vector<Resident*> residents) : frontBuffer(MAPMAXW* MAPMAXH, ' '), backBuffer(MAPMAXW* MAPMAXH, ' '), hero(hero), residents(residents) {}
+    GameState(int stage, Hero* hero, std::vector<Resident*> residents);
 
     void handleInput() override;
 

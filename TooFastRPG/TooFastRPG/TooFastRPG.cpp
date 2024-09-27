@@ -9,15 +9,15 @@
 
 int main()
 {
-    system(" mode  con lines=50   cols=80 ");
+    system(" mode  con lines=80   cols=100 ");
     CursorView();
 
     Hero* hero = new Hero(0, 0);
 
     // 주민 리스트 초기화
     std::vector<Resident*> residents = {
-        new Resident(3, 3),
-        new Resident(6, 6)
+        new Resident(16, 1),
+        new Resident(5, 6)
     };
 
     srand(time(NULL));

@@ -2,7 +2,6 @@
 
 void Hero::handleInput()
 {
-
     // _getch() 메소드를 사용해 화살표 키 입력 처리
     int ch = getCommand();
     switch (ch) {
@@ -34,5 +33,14 @@ void Hero::update()
 
 void Hero::render()
 {
+    if(!isCollision)
+        std::cout << "Hero at (" << x << ", " << y << ")\n";
+    else
+        std::cout << "충돌 발생! Hero: (" << x << ", " << y << ")\n";
+}
+
+void Hero::onNotify(int residentX, int residentY)
+{
+    isCollision = x == residentX && y == residentY ? true : false;
 
 }
