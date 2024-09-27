@@ -7,8 +7,8 @@ void Resident::update()
     y += directionY;
 
     // 맵의 경계를 넘을 경우 방향을 반대로 전환
-    if (x <= 0 || x >= 9) directionX *= -1;
-    if (y <= 0 || y >= 9) directionY *= -1;
+    if (x <= 0 || x >= MAPMAXW - 1) directionX *= -1;
+    if (y <= 0 || y >= MAPMAXW - 1) directionY *= -1;
 }
 
 void Resident::render()

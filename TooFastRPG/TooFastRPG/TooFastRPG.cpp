@@ -7,7 +7,11 @@
 
 
 
-int main() {
+int main()
+{
+    system(" mode  con lines=50   cols=80 ");
+    CursorView();
+
     Hero* hero = new Hero(0, 0);
 
     // 주민 리스트 초기화

@@ -2,20 +2,27 @@
 
 void Hero::handleInput()
 {
+
     // _getch() 메소드를 사용해 화살표 키 입력 처리
-    int ch = _getch();
+    int ch = getCommand();
     switch (ch) {
     case 72: // 위쪽 화살표
-        y--;
+        if(y > 0)
+            y--;
         break;
     case 80: // 아래쪽 화살표
-        y++;
+        if(y < MAPMAXH - 1)
+            y++;
         break;
     case 75: // 왼쪽 화살표
-        x--;
+        if(x > 0)
+            x--;
         break;
     case 77: // 오른쪽 화살표
-        x++;
+        if (x < MAPMAXW - 1)
+            x++;
+        break;
+    default:
         break;
     }
 }
@@ -27,19 +34,5 @@ void Hero::update()
 
 void Hero::render()
 {
-    system("cls");
-    // 용사의 위치에 'H'를 표시
-    for (int i = 0; i < MAPMAXW; i++) 
-    {
-        for (int j = 0; j < MAPMAXH; j++) 
-        {
-            if (i == y && j == x) {
-                std::cout << 'H' << " "; // 용사 위치
-            }
-            else {
-                std::cout << '.' << " "; // 빈 공간
-            }
-        }
-        std::cout << std::endl;
-    }
+
 }
