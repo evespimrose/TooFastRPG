@@ -17,13 +17,13 @@ private:
 public:
     GameState(int stage, Hero* hero, vector<Resident*> residents);
 
-    void handleInput() override;
+    void HandleInput() override;
 
-    void update() override;
+    void Update() override;
 
-    void render() override;
+    void Render() override;
 
-    void drawSceneToBackBuffer();
+    void DrawSceneToBackBuffer();
 
 };
 

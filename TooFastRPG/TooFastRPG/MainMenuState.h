@@ -5,9 +5,9 @@
 class MainMenuState : public State
 {
 public:
-    void handleInput() override;
-    void update() override;
+    void HandleInput() override;
+    void Update() override;
 
-    void render() override;
+    void Render() override;
 };
 

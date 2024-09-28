@@ -16,12 +16,14 @@ public:
         directionY = (rand() % 2 == 0) ? 1 : -1;
     }
 
-    void update();
+    void Update();
 
-    void render();
+    void Render();
 
     int getX() { return x; }
     int getY() { return y; }
 
+
+    void Move();
 };
 

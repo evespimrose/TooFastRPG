@@ -1,18 +1,18 @@
 #include "Game.h"
 
-void Game::run()
+void Game::Run()
 {
     while (isRunning) {
         auto frameStart = chrono::high_resolution_clock::now();
 
         // 1. 입력 처리
-        currentState->handleInput();
+        currentState->HandleInput();
 
         // 2. 게임 상태 업데이트
-        currentState->update();
+        currentState->Update();
 
         // 3. 화면 렌더링 (이중 버퍼링 활용)
-        currentState->render();
+        currentState->Render();
 
         // FPS 유지
         auto frameTime = chrono::high_resolution_clock::now() - frameStart;
@@ -24,12 +24,12 @@ void Game::run()
     }
 }
 
-void Game::stop()
+void Game::Stop()
 {
     isRunning = false;
 }
 
-void Game::changeState(State* newState)
+void Game::ChangeState(State* newState)
 {
     delete currentState;
     currentState = newState;

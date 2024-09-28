@@ -1,9 +1,9 @@
 #include "Hero.h"
 
-void Hero::handleInput()
+void Hero::HandleInput()
 {
     // _getch() 메소드를 사용해 화살표 키 입력 처리
-    int ch = getCommand();
+    int ch = GetCommand();
     switch (ch) {
     case 72: // 위쪽 화살표
         if(y > 0)
@@ -26,12 +26,12 @@ void Hero::handleInput()
     }
 }
 
-void Hero::update()
+void Hero::Update()
 {
 
 }
 
-void Hero::render()
+void Hero::Render()
 {
     if(!isCollision)
         std::cout << "Hero at (" << x << ", " << y << ")\n";
@@ -39,7 +39,7 @@ void Hero::render()
         std::cout << "충돌 발생! Hero: (" << x << ", " << y << ")\n";
 }
 
-void Hero::onNotify(int residentX, int residentY)
+void Hero::OnNotify(int residentX, int residentY)
 {
     isCollision = x == residentX && y == residentY ? true : false;
 

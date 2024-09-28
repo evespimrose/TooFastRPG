@@ -13,10 +13,10 @@ private:
 public:
     Game(State* initialState) : currentState(initialState), isRunning(true) {}
 
-    void run();
+    void Run();
 
-    void stop();
+    void Stop();
 
-    void changeState(State* newState);
+    void ChangeState(State* newState);
 };
 

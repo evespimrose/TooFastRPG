@@ -11,13 +11,13 @@ private:
 public:
     Hero(int startX, int startY) : x(startX), y(startY), isCollision(false) {}
 
-    void handleInput();
+    void HandleInput();
 
-    void update();
+    void Update();
 
-    void render();
+    void Render();
 
-    void onNotify(int residentX, int residentY) override;
+    void OnNotify(int residentX, int residentY) override;
 
     // Getter for Hero's position
     int getX() { return x; }

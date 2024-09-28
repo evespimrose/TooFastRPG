@@ -1,13 +1,13 @@
 #include "MainMenuState.h"
 
-void MainMenuState::handleInput()
+void MainMenuState::HandleInput()
 {
 }
 
-void MainMenuState::update()
+void MainMenuState::Update()
 {
 }
 
-void MainMenuState::render()
+void MainMenuState::Render()
 {
 }

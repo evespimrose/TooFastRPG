@@ -1,10 +1,11 @@
 #include "Resident.h"
 
-void Resident::update()
+void Resident::Update()
 {
     int oldX = x, oldY = y;
     // 예시: 이동 처리
     // x++, y++ 또는 NPC 로직에 따라 변경
+
 
     
     // 일정 간격으로 주민이 이동함
@@ -16,11 +17,11 @@ void Resident::update()
     if (y <= 0 || y >= MAPMAXW - 1) directionY *= -1;
 
     if (oldX != x || oldY != y) 
-        notify(x, y); // Hero에게 새로운 좌표 통보
+        Notify(x, y); // Hero에게 새로운 좌표 통보
 
 }
 
-void Resident::render()
+void Resident::Render()
 {
     // 주민 위치에 'R'을 표시
     std::cout << "Resident at (" << x << ", " << y << ")\n";

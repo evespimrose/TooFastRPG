@@ -25,7 +25,7 @@ int main()
     Game game(gamestate);
 
     // 게임 루프 실행
-    game.run();
+    game.Run();
 
     return 0;
 }

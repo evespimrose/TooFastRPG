@@ -1,6 +1,6 @@
 #include "GameState.h"
 
-GameState::GameState(int stage, Hero* hero, vector<Resident*> residents) : frontBuffer(MAPMAXW* MAPMAXH, ' '), backBuffer(MAPMAXW* MAPMAXH, ' '), hero(hero), residents(residents)
+GameState::GameState(int stage, Hero* h, vector<Resident*> r) : frontBuffer(MAPMAXW* MAPMAXH, ' '), backBuffer(MAPMAXW* MAPMAXH, ' '), hero(h), residents(r)
 {
     switch (stage)
     {
@@ -23,22 +23,22 @@ GameState::GameState(int stage, Hero* hero, vector<Resident*> residents) : front
     }
 
     for (Resident* resident : residents) 
-        resident->addObserver(hero); // Resident에 Hero를 옵저버로 추가
+        resident->AddObserver(hero); // Resident에 Hero를 옵저버로 추가
 }
 
-void GameState::handleInput() {
-    hero->handleInput(); // Hero의 입력 처리 및 notify 호출
+void GameState::HandleInput() {
+    hero->HandleInput(); // Hero의 입력 처리 및 notify 호출
 }
 
-void GameState::update() {
-    hero->update(); // Hero 업데이트
+void GameState::Update() {
+    hero->Update(); // Hero 업데이트
     for (Resident* resident : residents) {
-        resident->update(); // Resident 업데이트
+        resident->Update(); // Resident 업데이트
     }
 }
 
-void GameState::render() {
-    drawSceneToBackBuffer();
+void GameState::Render() {
+    DrawSceneToBackBuffer();
 
     std::cout << "\033[H";  // 콘솔 커서를 최상단으로 이동
     for (int i = 0; i < MAPMAXH; ++i) {
@@ -51,13 +51,13 @@ void GameState::render() {
     std::swap(frontBuffer, backBuffer);
     std::fill(backBuffer.begin(), backBuffer.end(), ' ');
 
-    hero->render();
+    hero->Render();
     for (Resident* resident : residents) {
-        resident->render();
+        resident->Render();
     }
 }
 
-void GameState::drawSceneToBackBuffer() {
+void GameState::DrawSceneToBackBuffer() {
     for (auto& c : backBuffer)
         c = '.';
 

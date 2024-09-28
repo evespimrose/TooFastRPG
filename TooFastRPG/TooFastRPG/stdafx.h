@@ -15,7 +15,7 @@ using namespace std;
 #define MAPMAXW 40
 #define MAPMAXH 40
 
-inline int getCommand() {
+inline int GetCommand() {
     if (_kbhit()) {
         return _getch();
     }
