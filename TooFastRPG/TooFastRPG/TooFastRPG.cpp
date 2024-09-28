@@ -1,9 +1,9 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 #include "Game.h"
 #include "MainMenuState.h"
 #include "GameState.h"
 
-// ìƒíƒœ(State) ì¸í„°í˜ì´ìŠ¤
+// »óÅÂ(State) ÀÎÅÍÆäÀÌ½º
 
 
 
@@ -14,19 +14,19 @@ int main()
 
     Hero* hero = new Hero(0, 0);
 
-    // ì£¼ë¯¼ ë¦¬ìŠ¤íŠ¸ ì´ˆê¸°í™”
+    // ÁÖ¹Î ¸®½ºÆ® ÃÊ±âÈ­
     std::vector<Resident*> residents = {
         new Resident(16, 1),
         new Resident(5, 6)
     };
 
     srand(time(NULL));
-    // ë©”ì¸ ë©”ë‰´ ìƒíƒœë¡œ ì´ˆê¸°í™”
+    // ¸ŞÀÎ ¸Ş´º »óÅÂ·Î ÃÊ±âÈ­
     MainMenuState* mainMenu = new MainMenuState();
     GameState* gamestate = new GameState(hero, residents);
     Game game(gamestate);
 
-    // ê²Œì„ ë£¨í”„ ì‹¤í–‰
+    // °ÔÀÓ ·çÇÁ ½ÇÇà
     game.run();
 
     return 0;
