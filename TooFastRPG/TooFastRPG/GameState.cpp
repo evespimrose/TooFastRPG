@@ -1,6 +1,6 @@
 #include "GameState.h"
 
-GameState::GameState(int stage, Hero* hero) : frontBuffer(MAPMAXW* MAPMAXH, ' '), backBuffer(MAPMAXW* MAPMAXH, ' '), hero(hero), residents()
+GameState::GameState(int stage, Hero* hero, vector<Resident*> residents) : frontBuffer(MAPMAXW* MAPMAXH, ' '), backBuffer(MAPMAXW* MAPMAXH, ' '), hero(hero), residents(residents)
 {
     switch (stage)
     {
@@ -21,25 +21,26 @@ GameState::GameState(int stage, Hero* hero) : frontBuffer(MAPMAXW* MAPMAXH, ' ')
     default:
         break;
     }
+
     for (Resident* resident : residents) 
-        resident->addObserver(hero); // Resident¿¡ Hero¸¦ ¿ÉÀú¹ö·Î Ãß°¡
+        resident->addObserver(hero); // Residentì— Heroë¥¼ ì˜µì €ë²„ë¡œ ì¶”ê°€
 }
 
 void GameState::handleInput() {
-    hero->handleInput(); // HeroÀÇ ÀÔ·Â Ã³¸® ¹× notify È£Ãâ
+    hero->handleInput(); // Heroì˜ ì…ë ¥ ì²˜ë¦¬ ë° notify í˜¸ì¶œ
 }
 
 void GameState::update() {
-    hero->update(); // Hero ¾÷µ¥ÀÌÆ®
+    hero->update(); // Hero ì—…ë°ì´íŠ¸
     for (Resident* resident : residents) {
-        resident->update(); // Resident ¾÷µ¥ÀÌÆ®
+        resident->update(); // Resident ì—…ë°ì´íŠ¸
     }
 }
 
 void GameState::render() {
     drawSceneToBackBuffer();
 
-    std::cout << "\033[H";  // ÄÜ¼Ö Ä¿¼­¸¦ ÃÖ»ó´ÜÀ¸·Î ÀÌµ¿
+    std::cout << "\033[H";  // ì½˜ì†” ì»¤ì„œë¥¼ ìµœìƒë‹¨ìœ¼ë¡œ ì´ë™
     for (int i = 0; i < MAPMAXH; ++i) {
         for (int j = 0; j < MAPMAXW; ++j) {
             std::cout << backBuffer[i * MAPMAXW + j] << " ";
