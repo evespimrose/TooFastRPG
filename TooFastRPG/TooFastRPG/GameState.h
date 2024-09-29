@@ -9,7 +9,7 @@ class GameState : public State
 {
 private:
     Hero* hero; // øÎªÁ ∞¥√º
-    std::vector<Resident*> residents; // ¡÷πŒ ∞¥√ºµÈ
+    vector<Resident*> residents; // ¡÷πŒ ∞¥√ºµÈ
 
     vector<char> frontBuffer = {};
     vector<char> backBuffer = {};
