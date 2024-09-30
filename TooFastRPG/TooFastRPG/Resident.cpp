@@ -3,26 +3,20 @@
 void Resident::Update()
 {
     int oldX = x, oldY = y;
-    // ¿¹½Ã: ÀÌµ¿ Ã³¸®
-    // x++, y++ ¶Ç´Â NPC ·ÎÁ÷¿¡ µû¶ó º¯°æ
-
-
     
-    // ÀÏÁ¤ °£°İÀ¸·Î ÁÖ¹ÎÀÌ ÀÌµ¿ÇÔ
+    // ì¼ì • ê°„ê²©ìœ¼ë¡œ ì£¼ë¯¼ì´ ì´ë™í•¨
     x += directionX;
     y += directionY;
 
-    // ¸ÊÀÇ °æ°è¸¦ ³ÑÀ» °æ¿ì ¹æÇâÀ» ¹İ´ë·Î ÀüÈ¯
+    // ë§µì˜ ê²½ê³„ë¥¼ ë„˜ì„ ê²½ìš° ë°©í–¥ì„ ë°˜ëŒ€ë¡œ ì „í™˜
     if (x <= 0 || x >= MAPMAXW - 1) directionX *= -1;
     if (y <= 0 || y >= MAPMAXW - 1) directionY *= -1;
 
     if (oldX != x || oldY != y) 
-        Notify(x, y); // Hero¿¡°Ô »õ·Î¿î ÁÂÇ¥ Åëº¸
-
+        Notify(x, y); // Heroì—ê²Œ ìƒˆë¡œìš´ ì¢Œí‘œ í†µë³´
 }
 
 void Resident::Render()
 {
-    // ÁÖ¹Î À§Ä¡¿¡ 'R'À» Ç¥½Ã
     std::cout << "Resident at (" << x << ", " << y << ")\n";
 }

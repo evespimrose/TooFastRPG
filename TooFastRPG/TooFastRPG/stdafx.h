@@ -24,6 +24,11 @@ enum
     ARROW_RIGHT = 77
 };
 
+enum class Call
+{
+
+};
+
 inline int GetCommand() 
 {
     int nkey = -1;

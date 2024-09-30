@@ -2,7 +2,7 @@
 #include "stdafx.h"
 #include "GameState.h"
 
-class Game
+class Game : public Observer
 {
 private:
     bool isRunning;
@@ -18,5 +18,8 @@ public:
     void Stop();
 
     void ChangeState(State* newState);
+
+    void OnNotify(int x, int y) override {}
+    void OnNotify(Call c) override {}
 };
 

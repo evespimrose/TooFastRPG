@@ -10,21 +10,22 @@ int main()
 
     Hero* hero = new Hero(0, 0);
 
-    // ÁÖ¹Î ¸®½ºÆ® ÃÊ±âÈ­
+    // ì£¼ë¯¼ ë¦¬ìŠ¤íŠ¸ ì´ˆê¸°í™”
     std::vector<Resident*> residents = 
     {
         new Resident(16, 1),
         new Resident(5, 6)
     };
+
     int stage = 1;
 
     srand(time(NULL));
-    // ¸ŞÀÎ ¸Ş´º »óÅÂ·Î ÃÊ±âÈ­
+    // ë©”ì¸ ë©”ë‰´ ìƒíƒœë¡œ ì´ˆê¸°í™”
     MainMenuState* mainMenu = new MainMenuState();
     GameState* gamestate = new GameState(stage, hero, residents);
     Game game(gamestate);
 
-    // °ÔÀÓ ·çÇÁ ½ÇÇà
+    // ê²Œì„ ë£¨í”„ ì‹¤í–‰
     game.Run();
 
     return 0;

@@ -19,6 +19,7 @@ public:
     void Render();
 
     void OnNotify(int residentX, int residentY) override;
+    void OnNotify(Call c) override;
 
     // Getter for Hero's position
     int getX() { return x; }

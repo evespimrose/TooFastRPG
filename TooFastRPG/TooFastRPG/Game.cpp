@@ -5,22 +5,21 @@ void Game::Run()
     while (isRunning) {
         auto frameStart = chrono::high_resolution_clock::now();
 
-        // 1. ÀÔ·Â Ã³¸®
+        // 1. ìž…ë ¥ ì²˜ë¦¬
         currentState->HandleInput();
 
-        // 2. °ÔÀÓ »óÅÂ ¾÷µ¥ÀÌÆ®
+        // 2. ê²Œìž„ ìƒíƒœ ì—…ë°ì´íŠ¸
         currentState->Update();
 
-        // 3. È­¸é ·»´õ¸µ (ÀÌÁß ¹öÆÛ¸µ È°¿ë)
+        // 3. í™”ë©´ ë Œë”ë§ (ì´ì¤‘ ë²„í¼ë§ í™œìš©)
         currentState->Render();
 
-        // FPS À¯Áö
+        // FPS ìœ ì§€
         auto frameTime = chrono::high_resolution_clock::now() - frameStart;
         int frameDuration = chrono::duration_cast<chrono::milliseconds>(frameTime).count();
 
         if (frameDelay > frameDuration) 
             this_thread::sleep_for(chrono::milliseconds(frameDelay - frameDuration));
-
     }
 }
 
