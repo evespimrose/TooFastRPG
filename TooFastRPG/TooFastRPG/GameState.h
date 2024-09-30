@@ -11,8 +11,8 @@ private:
     Hero* hero; // ¿ë»ç °´Ã¼
     vector<Resident*> residents; // ÁÖ¹Î °´Ã¼µé
 
-    vector<char> frontBuffer = {};
-    vector<char> backBuffer = {};
+    vector<vector<char>> frontBuffer = {};
+    vector<vector<char>> backBuffer = {};
 
 public:
     GameState(int stage, Hero* hero, vector<Resident*> residents);
@@ -24,6 +24,10 @@ public:
     void Render() override;
 
     void DrawSceneToBackBuffer();
+
+    void SetFrontBuffer(vector<vector<char>>& c) { frontBuffer = c; }
+    void SetBackBuffer(vector<vector<char>>& c) { backBuffer = c; }
+
 
 };
 

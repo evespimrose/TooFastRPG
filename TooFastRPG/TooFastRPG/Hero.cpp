@@ -2,22 +2,22 @@
 
 void Hero::HandleInput()
 {
-    // _getch() ¸Þ¼Òµå¸¦ »ç¿ëÇØ È­»ìÇ¥ Å° ÀÔ·Â Ã³¸®
+    // _getch() ë©”ì†Œë“œë¥¼ ì‚¬ìš©í•´ í™”ì‚´í‘œ í‚¤ ìž…ë ¥ ì²˜ë¦¬
     int ch = GetCommand();
     switch (ch) {
-    case ARROW_UP: // À§ÂÊ È­»ìÇ¥
+    case ARROW_UP: // ìœ„ìª½ í™”ì‚´í‘œ
         if(y > 0)
             y--;
         break;
-    case ARROW_DOWN: // ¾Æ·¡ÂÊ È­»ìÇ¥
+    case ARROW_DOWN: // ì•„ëž˜ìª½ í™”ì‚´í‘œ
         if(y < MAPMAXH - 1)
             y++;
         break;
-    case ARROW_LEFT: // ¿ÞÂÊ È­»ìÇ¥
+    case ARROW_LEFT: // ì™¼ìª½ í™”ì‚´í‘œ
         if(x > 0)
             x--;
         break;
-    case ARROW_RIGHT: // ¿À¸¥ÂÊ È­»ìÇ¥
+    case ARROW_RIGHT: // ì˜¤ë¥¸ìª½ í™”ì‚´í‘œ
         if (x < MAPMAXW - 1)
             x++;
         break;
@@ -36,7 +36,7 @@ void Hero::Render()
     if(!isCollision)
         std::cout << "Hero at (" << x << ", " << y << ")\n";
     else
-        std::cout << "Ãæµ¹ ¹ß»ý! Hero: (" << x << ", " << y << ")\n";
+        std::cout << "ì¶©ëŒ ë°œìƒ! Hero: (" << x << ", " << y << ")\n";
 }
 
 void Hero::OnNotify(int residentX, int residentY)

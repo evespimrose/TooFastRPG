@@ -7,9 +7,10 @@ class Hero : public Observer
 private:
     int x, y; // 용사의 현재 위치
     bool isCollision;
+    int holy;
 
 public:
-    Hero(int startX, int startY) : x(startX), y(startY), isCollision(false) {}
+    Hero(int startX, int startY) : x(startX), y(startY), isCollision(false), holy(0) {}
 
     void HandleInput();
 

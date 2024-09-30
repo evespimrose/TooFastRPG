@@ -1,11 +1,13 @@
 #include "GameState.h"
 
-GameState::GameState(int stage, Hero* h, vector<Resident*> r) : frontBuffer(MAPMAXW* MAPMAXH, ' '), backBuffer(MAPMAXW* MAPMAXH, ' '), hero(h), residents(r)
+GameState::GameState(int stage, Hero* h, vector<Resident*> r) : hero(h), residents(r)
 {
+    vector<vector<char>> c(MAPMAXW, vector<char>(MAPMAXH, ' '));
+    SetFrontBuffer(c);
+    SetBackBuffer(c);
+
     switch (stage)
     {
-    case 0:
-        break;
     case 1:
         break;
     case 2:
@@ -40,16 +42,29 @@ void GameState::Update() {
 void GameState::Render() {
     DrawSceneToBackBuffer();
 
-    std::cout << "\033[H";  // 콘솔 커서를 최상단으로 이동
-    for (int i = 0; i < MAPMAXH; ++i) {
+    cout << "\033[H";  // 콘솔 커서를 최상단으로 이동
+    /*for (int i = 0; i < MAPMAXH; ++i) {
         for (int j = 0; j < MAPMAXW; ++j) {
-            std::cout << backBuffer[i * MAPMAXW + j] << " ";
+            cout << backBuffer[i * MAPMAXW + j] << " ";
         }
-        std::cout << "\n";
+        cout << "\n";
+    }*/
+
+    for (auto& i : backBuffer)
+    {
+        for (auto& j : i)
+        {
+            cout << j << " ";
+        }
+        cout << "\n";
     }
 
-    std::swap(frontBuffer, backBuffer);
-    std::fill(backBuffer.begin(), backBuffer.end(), ' ');
+    swap(frontBuffer, backBuffer);
+    for (auto& i : backBuffer)
+    {
+        fill(i.begin(), i.end(), ' ');
+    }
+    //fill(backBuffer.begin(), backBuffer.end(), ' ');
 
     hero->Render();
     for (Resident* resident : residents) {
@@ -58,12 +73,13 @@ void GameState::Render() {
 }
 
 void GameState::DrawSceneToBackBuffer() {
-    for (auto& c : backBuffer)
-        c = '.';
+    for (auto& i : backBuffer)
+        for(auto& c : i)
+            c = '.';
 
-    backBuffer[hero->getY() * MAPMAXW + hero->getX()] = 'H';
+    backBuffer[hero->getY()][hero->getX()] = 'H';
 
     for (auto& r : residents) {
-        backBuffer[r->getY() * MAPMAXW + r->getX()] = 'r';
+        backBuffer[r->getY()][r->getX()] = 'r';
     }
 }
