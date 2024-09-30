@@ -75,9 +75,25 @@ void Hero::Render()
     cout << "은신 잔여 게이지 : " << fixed << canHide / (double)10 << " %                              \n";
 }
 
-void Hero::OnNotify(int residentX, int residentY)
+void Hero::OnNotify(Call c, int X, int Y, bool& flag)
 {
-    isCollision = x == residentX && y == residentY ? true : false;
+    switch (c)
+    {
+    case Call::None:
+        break;
+    case Call::EnterGameState:
+        break;
+    case Call::NunCollision:
+        holy += x == X && y == Y ? 1 : 0;
+        flag = false;
+        break;
+    case Call::ResidentCollision:
+        isCollision = x == X && y == Y ? true : false;
+        break;
+    default:
+        break;
+    }
+    
 
 }
 
@@ -85,7 +101,7 @@ void Hero::OnNotify(Call c)
 {
     switch (c)
     {
-    case Call::NunHasBeenCrashed:
+    case Call::NunCollision:
 
         break;
     default:

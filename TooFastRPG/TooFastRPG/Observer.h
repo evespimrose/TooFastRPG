@@ -6,14 +6,16 @@ enum class Call
 
     EnterGameState,
 
-    NunHasBeenCrashed,
+    NunCollision,
+    ResidentCollision,
 
 };
 
 class Observer 
 {
 public:
-    virtual void OnNotify(int x, int y) = 0;
+    virtual void OnNotify(Call c, int x, int y) = 0;
+    virtual void OnNotify(Call c, int x, int y, bool& flag) = 0;
     virtual void OnNotify(Call c) = 0;
 };
 
@@ -28,11 +30,19 @@ public:
         observers.push_back(observer);
     }
 
-    void Notify(int x, int y) 
+    void Notify(Call c, int x, int y)
     {
         for (Observer* observer : observers) 
         {
-            observer->OnNotify(x, y);
+            observer->OnNotify(c, x, y);
+        }
+    }
+
+    void Notify(Call c, int x, int y, bool& flag)
+    {
+        for (Observer* observer : observers)
+        {
+            observer->OnNotify(c, x, y, flag);
         }
     }
 

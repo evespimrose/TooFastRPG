@@ -27,7 +27,8 @@ public:
 
     void Render();
 
-    void OnNotify(int residentX, int residentY) override;
+    void OnNotify(Call c, int X, int Y, bool& flag) override;
+    void OnNotify(Call c, int X, int Y) override {};
     void OnNotify(Call c) override;
     void SetHide(double i) { canHide = i; }
 

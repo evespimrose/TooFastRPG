@@ -6,13 +6,15 @@ void Nun::Update(vector<vector<int>> v)
 
     Move(v);
 
-    if (oldX != x || oldY != y)
-        Notify(x, y);
+    if (oldX != x || oldY != y && chastity)
+    {
+        Notify(Call::NunCollision, x, y, chastity);
+    }
 }
 
 void Nun::Render()
 {
-    std::cout << "Nun at (" << x << ", " << y << ")                                  \n";
+    std::cout << "Nun at (" << x << ", " << y << "), chasity : " << chastity << "                                  \n";
 }
 
 void Nun::Move(vector<vector<int>> v)

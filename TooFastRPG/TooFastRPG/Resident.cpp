@@ -8,7 +8,7 @@ void Resident::Update(vector<vector<int>> v)
     Move(v);
 
     if (oldX != x || oldY != y) 
-        Notify(x, y); // Hero에게 새로운 좌표 통보
+        Notify(Call::ResidentCollision, x, y); // Hero에게 새로운 좌표 통보
 }
 
 void Resident::Render()

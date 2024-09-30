@@ -19,7 +19,8 @@ public:
 
     void ChangeState(State* newState);
 
-    void OnNotify(int x, int y) override {}
+    void OnNotify(Call c, int x, int y) override {}
+    void OnNotify(Call c, int X, int Y, bool& flag) override {};
     void OnNotify(Call c) override {}
 };
 

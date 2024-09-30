@@ -41,9 +41,6 @@ GameState::GameState(int stage, Hero* h, vector<Resident*> r, vector<Nun*> n) : 
 
 void GameState::HandleInput() 
 {
-    // _getch()
-    //int ch = GetCommand();
-
     hero->HandleInput(mapBuffer);
 }
 
@@ -121,5 +118,6 @@ void GameState::DrawSceneToBackBuffer()
         backBuffer[r->getY()][r->getX()] = "R ";
 
     for (auto& n : nuns)
-        backBuffer[n->getY()][n->getX()] = "N ";
+        if(n->getChastity())
+            backBuffer[n->getY()][n->getX()] = "N ";
 }

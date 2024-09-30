@@ -10,6 +10,7 @@ private:
     int directionX, directionY;
     bool isCollision;
     int stage;
+    bool chastity = true;
 
 public:
     Nun(int stg, int startX, int startY) : stage(stg), x(startX), y(startY), isCollision(false)
@@ -24,6 +25,7 @@ public:
 
     int getX() { return x; }
     int getY() { return y; }
+    bool getChastity() { return chastity; }
 
 
     void Move(vector<vector<int>> v);
