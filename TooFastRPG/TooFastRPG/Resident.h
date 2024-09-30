@@ -10,14 +10,19 @@ private:
     int directionX, directionY; 
     bool isCollision;
 
+    int moveCountX;
+    int moveCountY;
+
 public:
     Resident(int startX, int startY) : x(startX), y(startY), isCollision(false)
     {
         directionX = (rand() % 2 == 0) ? 1 : -1;
         directionY = (rand() % 2 == 0) ? 1 : -1;
+        moveCountX = rand() % 15 + 1;
+        moveCountY = rand() % 15 + 1;
     }
 
-    void Update();
+    void Update(vector<vector<int>> v);
 
     void Render();
 
@@ -25,6 +30,6 @@ public:
     int getY() { return y; }
 
 
-    void Move();
+    void Move(vector<vector<int>> v);
 };
 

@@ -29,7 +29,7 @@ GameState::GameState(int stage, Hero* h, vector<Resident*> r) : hero(h), residen
     }
 
     for (Resident* resident : residents) 
-        resident->AddObserver(hero); // Resident에 Hero를 옵저버로 추가
+        resident->AddObserver(hero); 
 }
 
 void GameState::HandleInput() 
@@ -45,7 +45,7 @@ void GameState::Update()
 {
     hero->Update();
     for (Resident* resident : residents) 
-        resident->Update();
+        resident->Update(mapBuffer);
 }
 
 void GameState::Render() 
@@ -64,6 +64,7 @@ void GameState::Render()
     }
 
     swap(frontBuffer, backBuffer);
+
     for (auto& i : backBuffer)
     {
         fill(i.begin(), i.end(), ' ');

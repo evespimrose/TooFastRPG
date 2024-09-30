@@ -19,5 +19,34 @@ struct MyMap
 				}
 			}
 		}
+		CreateBox(0, 5, 8, 2, 3);
+		CreateBox(0, 10, 8, 2, 3);
+		CreateBox(0, 15, 8, 2, 3);
+		CreateBox(0, 20, 8, 2, 3);
+		CreateBox(0, 25, 8, 2, 3);
+		CreateBox(0, 30, 8, 3, 2);
+
+
+		CreateBox(0, 35, 35, 2, 3);
+		CreateBox(0, 30, 35, 2, 3);
+		CreateBox(0, 25, 35, 2, 3);
+		CreateBox(0, 20, 35, 2, 3);
+		CreateBox(0, 15, 35, 2, 3);
+		CreateBox(0, 10, 34, 3, 2);
+
+
+
+
 	};
+
+	void CreateBox(int stg, int x, int y, int w, int h)
+	{
+		for (int i = y - 1; i < y + w - 1; ++i)
+		{
+			for (int j = x - 1; j < x + h - 1; ++j)
+			{
+				stages[stg][i][j] = 1;
+			}
+		}
+	}
 };
