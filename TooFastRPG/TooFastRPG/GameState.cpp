@@ -34,7 +34,11 @@ GameState::GameState(int stage, Hero* h, vector<Resident*> r) : hero(h), residen
 
 void GameState::HandleInput() 
 {
-    hero->HandleInput();
+    // _getch()
+    int ch = GetCommand();
+
+    if(CanHeroMove())
+        hero->HandleInput(ch);
 }
 
 void GameState::Update() 
@@ -86,7 +90,7 @@ void GameState::DrawSceneToBackBuffer()
             case 0:
                 break;
             case 1:
-                backBuffer[i][j] = "★";
+                backBuffer[i][j] = "■";
                 break;
             default:
                 break;
@@ -96,7 +100,11 @@ void GameState::DrawSceneToBackBuffer()
 
     backBuffer[hero->getY()][hero->getX()] = "H";
 
-    for (auto& r : residents) {
+    for (auto& r : residents)         
         backBuffer[r->getY()][r->getX()] = "R";
-    }
+}
+
+bool GameState::CanHeroMove()
+{
+    return true;
 }

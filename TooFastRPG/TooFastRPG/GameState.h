@@ -8,8 +8,8 @@
 class GameState : public State
 {
 private:
-    Hero* hero; // ¿ë»ç °´Ã¼
-    vector<Resident*> residents; // ÁÖ¹Î °´Ã¼µé
+    Hero* hero;
+    vector<Resident*> residents;
 
     vector<vector<string>> frontBuffer = {};
     vector<vector<string>> backBuffer = {};
@@ -31,6 +31,6 @@ public:
 
     void SetMapBuffer(vector<vector<int>>& i) { mapBuffer = i; }
 
-
+    bool CanHeroMove();
 };
 

@@ -4,7 +4,7 @@
 class Observer 
 {
 public:
-    virtual void OnNotify(int x, int y) = 0; // Resident의 위치 변경을 통보받음
+    virtual void OnNotify(int x, int y) = 0;
     virtual void OnNotify(Call c) = 0;
 };
 

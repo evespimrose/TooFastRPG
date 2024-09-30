@@ -6,8 +6,8 @@
 class Resident : public Subject
 {
 private:
-    int x, y; // 주민의 현재 위치
-    int directionX, directionY; // 이동 방향 (1 또는 -1)
+    int x, y; 
+    int directionX, directionY; 
     bool isCollision;
 
 public:
