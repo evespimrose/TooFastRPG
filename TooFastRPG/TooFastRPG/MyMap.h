@@ -19,6 +19,18 @@ struct MyMap
 				}
 			}
 		}
+		for (int stage = 0; stage < 4; ++stage)
+		{
+			if (stage == 0) stages[stage][1][MAPMAXH - 2] = 2;
+			if (stage == 1) stages[stage][MAPMAXW - 2][MAPMAXH - 2] = 2;
+			if (stage == 2) stages[stage][1][1] = 2;
+			if (stage == 3) stages[stage][MAPMAXW - 2][2] = 2;
+
+		}
+		
+
+
+
 		CreateBox(0, 5, 8, 2, 3);
 		CreateBox(0, 10, 8, 2, 3);
 		CreateBox(0, 15, 8, 2, 3);

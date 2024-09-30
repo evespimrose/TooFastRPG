@@ -2,7 +2,12 @@
 
 enum class Call
 {
-    NunHasBeenCrashed
+    None,
+
+    EnterGameState,
+
+    NunHasBeenCrashed,
+
 };
 
 class Observer 

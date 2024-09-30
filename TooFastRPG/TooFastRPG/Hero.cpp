@@ -47,21 +47,32 @@ void Hero::HandleInput(vector<vector<int>> m)
         hide_Right = true;
 
     if (hide_Up && hide_Down && hide_Left && hide_Right)
+    {
+
         isHide = true;
+    }  
 }
 
 void Hero::Update(vector<vector<int>>& v)
 {
-    if (isHide)
+    if (isHide && canHide > 0)
+    {
         v[y][x] = 1;
+        canHide = canHide - ((double)100 / (double)60);
+        isHide = false;
+    }
+    if (canHide <= 0)
+        canHide = 0;
 }
 
 void Hero::Render()
 {
     if(!isCollision)
-        std::cout << "Hero at (" << x << ", " << y << ")                           \n";
+        cout << "Hero at (" << x << ", " << y << ")                           \n";
     else
-        std::cout << "충돌! Hero: (" << x << ", " << y << ")                        \n";
+        cout << "충돌! Hero: (" << x << ", " << y << ")                        \n";
+
+    cout << "은신 잔여 게이지 : " << fixed << canHide / (double)10 << " %                              \n";
 }
 
 void Hero::OnNotify(int residentX, int residentY)

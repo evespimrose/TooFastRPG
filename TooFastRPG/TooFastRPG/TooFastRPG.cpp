@@ -5,8 +5,9 @@
 
 int main()
 {
-    system(" mode  con lines=80   cols=100 ");
+    system(" mode  con lines=80   cols=160 ");
     CursorView();
+    cout.precision(3);
 
     Hero* hero = new Hero(1, MAPMAXH - 2);
 

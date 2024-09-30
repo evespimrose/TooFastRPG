@@ -2,6 +2,8 @@
 
 GameState::GameState(int stage, Hero* h, vector<Resident*> r, vector<Nun*> n) : hero(h), residents(r), nuns(n)
 {
+    this->AddObserver(hero);
+
     vector<vector<string>> c(MAPMAXW, vector<string>(MAPMAXH, " "));
     SetFrontBuffer(c);
     SetBackBuffer(c);
@@ -10,8 +12,10 @@ GameState::GameState(int stage, Hero* h, vector<Resident*> r, vector<Nun*> n) : 
     mm.CreateMap();
     SetMapBuffer(mm.stages[stage]);
 
-    switch (stage)
+    /*switch (stage)
     {
+    case 0:
+        break;
     case 1:
         break;
     case 2:
@@ -26,7 +30,9 @@ GameState::GameState(int stage, Hero* h, vector<Resident*> r, vector<Nun*> n) : 
         break;
     default:
         break;
-    }
+    }*/
+
+    hero->SetHide(1000.0 - (double)(stage * 200));
 
     for (Resident* resident : residents) 
         resident->AddObserver(hero); 
@@ -93,10 +99,13 @@ void GameState::DrawSceneToBackBuffer()
             switch (mapBuffer[i][j])
             {
             case 0:
-                backBuffer[i][j] = ".";
+                backBuffer[i][j] = ". ";
                 break;
             case 1:
-                backBuffer[i][j] = "■";
+                backBuffer[i][j] = "■ ";
+                break;
+            case 2:
+                backBuffer[i][j] = "★";
                 break;
             default:
                 break;
@@ -105,11 +114,12 @@ void GameState::DrawSceneToBackBuffer()
     }
 
     if(!hero->getHide())
-        backBuffer[hero->getY()][hero->getX()] = "H";
-
+        backBuffer[hero->getY()][hero->getX()] = "H ";
+    else if(!hero->getCanHide())
+        backBuffer[hero->getY()][hero->getX()] = "H ";
     for (auto& r : residents)         
-        backBuffer[r->getY()][r->getX()] = "R";
+        backBuffer[r->getY()][r->getX()] = "R ";
 
     for (auto& n : nuns)
-        backBuffer[n->getY()][n->getX()] = "N";
+        backBuffer[n->getY()][n->getX()] = "N ";
 }

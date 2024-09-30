@@ -14,7 +14,17 @@ void Game::Run()
         // 3. 화면 렌더링 (이중 버퍼링 활용)
         currentState->Render();
 
-        // FPS 유지
+        if (currentState->getCall() != Call::None)
+        {
+            switch (currentState->getCall())
+            {
+            case Call::None:
+                break;
+            default:
+                break;
+            }
+        }
+
         auto frameTime = chrono::high_resolution_clock::now() - frameStart;
         int frameDuration = chrono::duration_cast<chrono::milliseconds>(frameTime).count();
 

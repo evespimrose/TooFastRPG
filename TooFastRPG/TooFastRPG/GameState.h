@@ -33,6 +33,5 @@ public:
 
     void SetMapBuffer(vector<vector<int>>& i) { mapBuffer = i; }
 
-    bool CanHeroMove();
 };
 
