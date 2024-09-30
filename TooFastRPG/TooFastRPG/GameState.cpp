@@ -1,6 +1,6 @@
 #include "GameState.h"
 
-GameState::GameState(int stage, Hero* h, vector<Resident*> r) : hero(h), residents(r)
+GameState::GameState(int stage, Hero* h, vector<Resident*> r, vector<Nun*> n) : hero(h), residents(r), nuns(n)
 {
     vector<vector<string>> c(MAPMAXW, vector<string>(MAPMAXH, " "));
     SetFrontBuffer(c);
@@ -30,22 +30,26 @@ GameState::GameState(int stage, Hero* h, vector<Resident*> r) : hero(h), residen
 
     for (Resident* resident : residents) 
         resident->AddObserver(hero); 
+
 }
 
 void GameState::HandleInput() 
 {
     // _getch()
-    int ch = GetCommand();
+    //int ch = GetCommand();
 
-    if(CanHeroMove())
-        hero->HandleInput(ch);
+    hero->HandleInput(mapBuffer);
 }
 
 void GameState::Update() 
 {
-    hero->Update();
-    for (Resident* resident : residents) 
+    hero->Update(mapBuffer);
+
+    for (auto& resident : residents)
         resident->Update(mapBuffer);
+
+    for (auto& nun : nuns)
+        nun->Update(mapBuffer);
 }
 
 void GameState::Render() 
@@ -72,16 +76,16 @@ void GameState::Render()
     //fill(backBuffer.begin(), backBuffer.end(), ' ');
 
     hero->Render();
-    for (Resident* resident : residents) 
+
+    for (auto& resident : residents) 
         resident->Render();
+
+    for (auto& nun : nuns)
+        nun->Render();
 }
 
 void GameState::DrawSceneToBackBuffer() 
 {
-    for (auto& i : backBuffer)
-        for (auto& s : i)
-            s = ".";
-
     for (int i = 0; i < mapBuffer.size(); ++i)
     {
         for (int j = 0; j < mapBuffer[0].size(); ++j)
@@ -89,6 +93,7 @@ void GameState::DrawSceneToBackBuffer()
             switch (mapBuffer[i][j])
             {
             case 0:
+                backBuffer[i][j] = ".";
                 break;
             case 1:
                 backBuffer[i][j] = "■";
@@ -99,13 +104,12 @@ void GameState::DrawSceneToBackBuffer()
         }
     }
 
-    backBuffer[hero->getY()][hero->getX()] = "H";
+    if(!hero->getHide())
+        backBuffer[hero->getY()][hero->getX()] = "H";
 
     for (auto& r : residents)         
         backBuffer[r->getY()][r->getX()] = "R";
-}
 
-bool GameState::CanHeroMove()
-{
-    return true;
+    for (auto& n : nuns)
+        backBuffer[n->getY()][n->getX()] = "N";
 }

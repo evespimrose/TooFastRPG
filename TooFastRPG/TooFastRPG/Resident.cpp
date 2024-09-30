@@ -22,23 +22,23 @@ void Resident::Move(vector<vector<int>> v)
     {
         moveCountX--;
 
-        if (x <= 1 || x >= MAPMAXW - 2 || v[y][x + directionX] == 1) directionX *= -1;
+        if (v[y][x + directionX] == 1) directionX *= -1;      // 벽 및 장애물 충돌 시 방향 전환
 
         x += directionX;
     }
     else
-        moveCountX = rand() % 15;
+        moveCountX = rand() % (stage * RESIDENTRANDOM);
 
     if (moveCountY > 0)
     {
         moveCountY--;
 
-        if (y <= 1 || y >= MAPMAXW - 2 || v[y + directionY][x] == 1) directionY *= -1;
+        if (v[y + directionY][x] == 1) directionY *= -1;
 
         y += directionY;
     }
     else
-        moveCountY = rand() % 15;
+        moveCountY = rand() % (stage * RESIDENTRANDOM);
   
 }
 

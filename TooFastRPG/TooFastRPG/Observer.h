@@ -1,5 +1,9 @@
 #pragma once
-#include <vector>
+
+enum class Call
+{
+    NunHasBeenCrashed
+};
 
 class Observer 
 {
@@ -11,7 +15,7 @@ public:
 class Subject 
 {
 private:
-    std::vector<Observer*> observers;
+    vector<Observer*> observers;
 
 public:
     void AddObserver(Observer* observer) 

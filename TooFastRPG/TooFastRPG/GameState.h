@@ -3,6 +3,7 @@
 #include "State.h"
 #include "Hero.h"
 #include "Resident.h"
+#include "Nun.h"
 
 
 class GameState : public State
@@ -10,13 +11,14 @@ class GameState : public State
 private:
     Hero* hero;
     vector<Resident*> residents;
+    vector<Nun*> nuns;
 
     vector<vector<string>> frontBuffer = {};
     vector<vector<string>> backBuffer = {};
     vector<vector<int>> mapBuffer = {};
 
 public:
-    GameState(int stage, Hero* hero, vector<Resident*> residents);
+    GameState(int stage, Hero* hero, vector<Resident*> residents, vector<Nun*> nuns);
 
     void HandleInput() override;
 
