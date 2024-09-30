@@ -8,7 +8,7 @@ int main()
     system(" mode  con lines=80   cols=100 ");
     CursorView();
 
-    Hero* hero = new Hero(0, 0);
+    Hero* hero = new Hero(1, 1);
 
     // 주민 리스트 초기화
     std::vector<Resident*> residents = 

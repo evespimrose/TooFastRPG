@@ -2,13 +2,13 @@
 
 GameState::GameState(int stage, Hero* h, vector<Resident*> r) : hero(h), residents(r)
 {
-
     vector<vector<string>> c(MAPMAXW, vector<string>(MAPMAXH, " "));
     SetFrontBuffer(c);
     SetBackBuffer(c);
 
-    vector<vector<int>> m(MAPMAXW, vector<int>(MAPMAXH, 0));
-    SetMapBuffer(m);
+    MyMap mm;
+    mm.CreateMap();
+    SetMapBuffer(mm.stages[stage]);
 
     switch (stage)
     {
@@ -74,12 +74,29 @@ void GameState::Render()
 void GameState::DrawSceneToBackBuffer() 
 {
     for (auto& i : backBuffer)
-        for(auto& c : i)
-            c = '.';
+        for (auto& s : i)
+            s = ".";
 
-    backBuffer[hero->getY()][hero->getX()] = 'H';
+    for (int i = 0; i < mapBuffer.size(); ++i)
+    {
+        for (int j = 0; j < mapBuffer[0].size(); ++j)
+        {
+            switch (mapBuffer[i][j])
+            {
+            case 0:
+                break;
+            case 1:
+                backBuffer[i][j] = "★";
+                break;
+            default:
+                break;
+            }
+        }
+    }
+
+    backBuffer[hero->getY()][hero->getX()] = "H";
 
     for (auto& r : residents) {
-        backBuffer[r->getY()][r->getX()] = 'R';
+        backBuffer[r->getY()][r->getX()] = "R";
     }
 }

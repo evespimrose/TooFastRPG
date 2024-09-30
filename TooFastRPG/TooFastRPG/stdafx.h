@@ -34,7 +34,7 @@ inline int GetCommand()
     int nkey = -1;
     if (_kbhit()) 
     {
-        nkey = _getch(); //방향키의 경우 nkey값은 224!
+        nkey = _getch(); //방향키의 경우 nkey값은 224
         if (nkey == ARROW)
         {
             nkey = _getch();

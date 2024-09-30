@@ -1,6 +1,7 @@
 #pragma once
 #include "stdafx.h"
 #include "Observer.h"
+#include "MyMap.h"
 
 class Resident : public Subject
 {
