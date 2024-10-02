@@ -69,7 +69,7 @@ void MainMenuState::Render()
 
 void MainMenuState::DrawSceneToBackBuffer()
 {
-    string s = "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n                                            Too Fast RPG\n\n\n\n                                         새 게임 시작 Enter\n\n                                  저장된 게임 불러오기 Space Bar\n\n                                           게임 종료 Esc";
+    string s = "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n                제목..은 마왕성에 가고 싶습니다로 하겠습니다. 근데..좀비..를 곁들인\n\n\n\n                                         새 게임 시작 Enter\n\n                                  저장된 게임 불러오기 Space Bar\n\n                                           게임 종료 Esc";
     *backBuffer->begin() = s;
 }
 

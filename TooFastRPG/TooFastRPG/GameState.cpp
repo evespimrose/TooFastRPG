@@ -180,7 +180,7 @@ void GameState::DrawSceneToBackBuffer()
             switch (mapBuffer[i][j])
             {
             case 0:
-                backBuffer[i][j] = ". ";
+                backBuffer[i][j] = "  ";
                 break;
             case 1:
                 backBuffer[i][j] = "■ ";
@@ -192,15 +192,15 @@ void GameState::DrawSceneToBackBuffer()
     }
 
     if(!hero->getHide())
-        backBuffer[hero->getY()][hero->getX()] = "H ";
+        backBuffer[hero->getY()][hero->getX()] = "▲ ";
     else if(!hero->getCanHide())
-        backBuffer[hero->getY()][hero->getX()] = "H ";
+        backBuffer[hero->getY()][hero->getX()] = "▲ ";
 
     for (auto& r : residents)         
-        backBuffer[r->getY()][r->getX()] = "R ";
+        backBuffer[r->getY()][r->getX()] = "◎";
 
     if (pendant->getisRender())
-        backBuffer[pendant->getY()][pendant->getX()] = "P ";
+        backBuffer[pendant->getY()][pendant->getX()] = "♣ ";
 
     backBuffer[portal->getY()][portal->getX()] = "★";
 }
