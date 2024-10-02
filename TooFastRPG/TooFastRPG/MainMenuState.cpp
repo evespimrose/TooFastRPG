@@ -69,7 +69,7 @@ void MainMenuState::Render()
 
 void MainMenuState::DrawSceneToBackBuffer()
 {
-    string s = "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n                                    새 게임 시작 Enter\n\n                                    저장된 게임 불러오기 Space Bar\n\n                                    게임 종료 Q / Esc";
+    string s = "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n                                            Too Fast RPG\n\n\n\n                                         새 게임 시작 Enter\n\n                                  저장된 게임 불러오기 Space Bar\n\n                                           게임 종료 Esc";
     *backBuffer->begin() = s;
 }
 
