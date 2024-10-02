@@ -26,13 +26,7 @@ void MainMenuState::HandleInput()
     case 32:
     {
         call = Call::EnterSavedGameState;
-
-        json j;
-        file >> j;
-
-        map<string, string> word_map;
-        for (const auto& result : j["results"])
-            word_map[result["Vocabulary"].get<string>()] = result["meaning"].get<string>();
+        parsingSaveFile(vs);
         break;
     }
         
@@ -75,3 +69,4 @@ void MainMenuState::DrawSceneToBackBuffer()
     string s = "\n\n\n\n\n                  새 게임 시작 Enter\n\n                  저장된 게임 불러오기 Space Bar\n\n                  게임 종료 Q / Esc";
     *backBuffer->begin() = s;
 }
+

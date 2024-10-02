@@ -58,13 +58,11 @@ void Hero::HandleInput(vector<vector<int>> m)
     }  
 }
 
-void Hero::Update(vector<vector<int>>& v)
+void Hero::Update()
 {
     if (isHide && canHide > 0)
     {
-        v[y][x] = 1;
         canHide = canHide - ((double)100 / (double)60);
-        isHide = false;
     }
     if (canHide <= 0)
         canHide = 0;
@@ -89,7 +87,7 @@ void Hero::Render()
         cout << "EnterGameState\n";
 
         break;
-    case Call::EnterMainMenuState:
+    case Call::EnterMainMenuState: 
         cout << "EnterMainMenuState\n";
 
         break;
@@ -122,7 +120,7 @@ void Hero::OnNotify(Socket s)
         }
         else if (s.call == Call::PendantCollision && x == s.x && y == s.y)
         {
-            holy += x == s.x && y == s.y ? 1 : 0;
+            holy++;
             prevCall = Call::PendantCollision;
         }
         else if (s.call == Call::PortalCollision && x == s.x && y == s.y)

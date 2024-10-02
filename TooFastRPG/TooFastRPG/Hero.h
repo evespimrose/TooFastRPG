@@ -20,11 +20,13 @@ private:
 
 public:
     Hero(int startX, int startY) : x(startX), y(startY), isCollision(false), holy(0), isHide(true), canHide(0) {}
-    Hero(int startX, int startY, int h) : x(startX), y(startY), isCollision(false), holy(0), isHide(true), canHide(h) {}
+    Hero(int startX, int startY, int h) : x(startX), y(startY), isCollision(false), holy(h), isHide(true), canHide(0) {}
+    Hero(int startX, int startY, int h, int ch) : x(startX), y(startY), isCollision(false), holy(0), isHide(true), canHide(ch) {}
+
 
     void HandleInput(vector<vector<int>> m);
 
-    void Update(vector<vector<int>>& v);
+    void Update();
 
     void Render();
 

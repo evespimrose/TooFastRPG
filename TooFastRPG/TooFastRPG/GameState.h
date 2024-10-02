@@ -23,12 +23,18 @@ private:
 
 public:
     GameState(int s, Hero* hero, vector<Resident*> residents, Pendant* pendant, Portal* portal);
+    GameState(int s, Hero* hero, vector<Resident*> residents, Pendant* pendant, Portal* portal, vector<vector<int>> map);
+
 
     void HandleInput() override;
 
     void Update() override;
 
     void Render() override;
+
+    void SaveFile() override;
+
+    void InitSaveFile();
 
     void DrawSceneToBackBuffer();
 

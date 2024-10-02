@@ -8,15 +8,7 @@ int main()
     system(" mode  con lines=80   cols=160 ");
     CursorView();
     cout.precision(3);
-
-    if (!file.is_open())
-    {
-        cerr << "Error opening data.txt.\n";
-        return 1;
-    }
-
-    json j;
-    file >> j;
+    SetConsoleOutputCP(CP_UTF8);
 
     Hero* hero = new Hero(1, MAPMAXH - 2);
 
@@ -27,7 +19,8 @@ int main()
     {
         new Resident(stage + 1, 22, 8),
         new Resident(stage + 1, 5, 6),
-        new Resident(stage + 1, 20, 20)
+        new Resident(stage + 1, 20, 20),
+        new Resident(stage + 1, 30, 20)
     };
 
     Pendant* pendant = new Pendant(11, 2);
@@ -38,7 +31,7 @@ int main()
     // 메인 메뉴 상태로 초기화
     MainMenuState* mainMenu = new MainMenuState();
     GameState* gamestate = new GameState(stage, hero, residents, pendant, portal);
-    Game game(gamestate);
+    Game game(mainMenu);
 
     // 게임 루프 실행
     game.Run();

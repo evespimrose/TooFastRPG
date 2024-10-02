@@ -7,6 +7,7 @@ class MainMenuState : public State
 private:
     vector<string>* frontBuffer = {};
     vector<string>* backBuffer = {};
+    
 
 public:
     MainMenuState();
@@ -16,8 +17,9 @@ public:
     void Update() override;
 
     void Render() override;
+    void SaveFile() override {};
 
     void DrawSceneToBackBuffer();
-
+    
 };
 

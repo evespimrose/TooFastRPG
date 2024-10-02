@@ -11,7 +11,7 @@ GameState::GameState(int s, Hero* h, vector<Resident*> r, Pendant* p, Portal* po
 
     MyMap mm;
     mm.CreateMap();
-    SetMapBuffer(mm.stages[s]);
+    SetMapBuffer(mm.stages[stage]);
 
     /*switch (stage)
     {
@@ -33,7 +33,7 @@ GameState::GameState(int s, Hero* h, vector<Resident*> r, Pendant* p, Portal* po
         break;
     }*/
 
-    hero->setHide(1000.0 - (double)(s * 200));
+    hero->setHide(1000.0 - (double)(stage * 200));
 
     for (auto* resident : residents) 
         resident->AddObserver(hero); 
@@ -44,15 +44,37 @@ GameState::GameState(int s, Hero* h, vector<Resident*> r, Pendant* p, Portal* po
 
 }
 
+GameState::GameState(int s, Hero* h, vector<Resident*> r, Pendant* p, Portal* po, vector<vector<int>> map) : stage(s), hero(h), residents(r), pendant(p), portal(po), mapBuffer(map)
+{
+    this->AddObserver(hero);
+
+    vector<vector<string>> c(MAPMAXW, vector<string>(MAPMAXH, " "));
+    SetFrontBuffer(c);
+    SetBackBuffer(c);
+
+    hero->setHide(1000.0 - (double)(stage * 200));
+
+    for (auto* resident : residents)
+        resident->AddObserver(hero);
+
+    pendant->AddObserver(hero);
+
+    portal->AddObserver(hero);
+}
+
 void GameState::HandleInput() 
 {
+    if (GetAsyncKeyState(VK_F1) & 0x8000)
+    {
+        SaveFile();
+    }
     hero->HandleInput(mapBuffer);
+
 }
 
 void GameState::Update() 
 {
-
-    hero->Update(mapBuffer);
+    hero->Update();
 
     for (auto& resident : residents)
         resident->Update(mapBuffer);
@@ -60,6 +82,9 @@ void GameState::Update()
     pendant->Update();
 
     portal->Update();
+
+    if (hero->getHide() && hero->getCanHide())
+        mapBuffer[hero->getY()][hero->getX()] = 1;
 
     Collision();
 
@@ -98,7 +123,72 @@ void GameState::Render()
 
     portal->Render();
 
+    cout << " hero->getHide() : " << boolalpha << hero->getHide() << endl;
+
     CallBack();
+}
+
+void GameState::SaveFile()
+{
+    vector<string> vs;
+
+    int num = 0;
+
+    vs.push_back("Stage");
+    vs.push_back(to_string(stage));
+
+    vs.push_back("Hero");
+
+    vs.push_back(to_string(hero->getX()));
+    vs.push_back(to_string(hero->getY()));
+    num += 3;
+
+    for (auto& resident : residents)
+    {
+        vs.push_back("Resident");
+
+        vs.push_back(to_string(resident->getX()));
+        vs.push_back(to_string(resident->getY()));
+        num += 3;
+    }
+
+    vs.push_back("Pendant");
+    vs.push_back(to_string(pendant->getX()));
+    vs.push_back(to_string(pendant->getY()));
+    num += 3;
+
+    vs.push_back("Portal");
+    vs.push_back(to_string(portal->getX()));
+    vs.push_back(to_string(portal->getY()));
+    num += 3;
+
+    vs.push_back("Map");
+    num++;
+    for(auto &i : mapBuffer)
+        for (auto& j : i)
+        {
+            vs.push_back(to_string(j));
+            num ++;
+        }
+
+    vector<string>::iterator iter = vs.begin();
+    vs.insert(iter, to_string(num));
+
+    // output to json file
+    ofstream output_file("output.txt");
+    for (auto& i : vs)
+        output_file << i << endl;
+    output_file.close();
+}
+
+void GameState::InitSaveFile()
+{
+    string num = "0";
+
+    ofstream output_file("output.txt");
+    output_file << num << endl;
+    output_file.close();
+
 }
 
 void GameState::DrawSceneToBackBuffer() 
@@ -140,14 +230,18 @@ void GameState::Collision()
     Call c = hero->getPrevCall();
     Hero* h = hero;
 
-    if (c == Call::EnterGameState) int a = 0;
-    else if (c == Call::ResidentCollision)
+    if (c == Call::ResidentCollision)
     {
         if (hero->getHoly() > 0)
+        {
             hero->setHoly(hero->getHoly() - 1);
+        }
         else
+        {
             call = Call::EnterMainMenuState;
-        //hero->setPrevCall(Call::None);
+
+        }
+        hero->setPrevCall(Call::None);
     }
     else if (c == Call::PendantCollision)
     {
@@ -156,36 +250,7 @@ void GameState::Collision()
     }
     else if (c == Call::PortalCollision)
     {
-        call = Call::EnterGameState;
+        call = Call::EnterNextStageGameState;
+        //hero->setPrevCall(Call::None);
     }
-
-    //if (c != Call::None)
-    //{
-    //    switch (c)
-    //    {
-    //    case Call::ResidentCollision:
-    //    {
-    //        if (hero->getHoly() > 0)
-    //            hero->setHoly(hero->getHoly() - 1);
-    //        //else
-    //            //call = Call::EnterMainMenuState;
-    //        hero->setPrevCall(Call::None);
-
-    //        break;
-    //    }
-    //    case Call::PendantCollision:
-    //    {
-    //        pendants.erase(remove_if(pendants.begin(), pendants.end(), [&h](Pendant*& p) { return h->getX() == p->getX() && h->getY() == p->getY(); }), pendants.end());
-    //        hero->setPrevCall(Call::None);
-    //        break;
-    //    }
-    //    case Call::PortalCollision:
-    //    {
-    //        call = Call::EnterGameState;
-    //        break;
-    //    }
-    //    default:
-    //        break;
-    //    }
-    //}
 }
