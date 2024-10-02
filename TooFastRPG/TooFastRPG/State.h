@@ -81,12 +81,9 @@ protected:
             file.open("output.txt", ifstream::in);
 
             string line;
-            cout << "file open\n";
             getline(file, line);
-            cout << "file open2\n";
 
             int num = stoi(line);
-            cout << "file open3\n";
 
             if (num == 0)
             {

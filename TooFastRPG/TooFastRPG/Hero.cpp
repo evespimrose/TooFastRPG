@@ -70,43 +70,8 @@ void Hero::Update()
 
 void Hero::Render()
 {
-    cout << "은신 잔여 게이지 : " << fixed << canHide / (double)10 << " %\n";
-    /*if(!isCollision)
-        cout << "Hero at (" << x << ", " << y << ")                           \n";
-    else
-        cout << "충돌! Hero: (" << x << ", " << y << ")                        \n";
-
-                                 \n";
-    cout << "holy : " << holy << "                                                            \n";
-    cout << "Hero State : ";
-    switch (prevCall)
-    {
-    case Call::None:
-        cout << "None\n";
-        break;
-    case Call::EnterGameState:
-        cout << "EnterGameState\n";
-
-        break;
-    case Call::EnterMainMenuState: 
-        cout << "EnterMainMenuState\n";
-
-        break;
-    case Call::PendantCollision:
-        cout << "PendantCollision\n";
-
-        break;
-    case Call::ResidentCollision:
-        cout << "ResidentCollision\n";
-
-        break;
-    case Call::PortalCollision:
-        cout << "PortalCollision\n";
-
-        break;
-    default:
-        break;
-    }*/
+    cout << "은신 잔여 게이지 : " << fixed << canHide / (double)10 << " %                                 \n"; 
+    cout << "배리어 : " << holy << "개                                                                \n";
 }
 
 void Hero::OnNotify(Socket s)

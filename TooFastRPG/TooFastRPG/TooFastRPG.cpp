@@ -5,7 +5,7 @@
 
 int main()
 {
-    system(" mode  con lines=80   cols=160 ");
+    system(" mode  con lines=44   cols=100 ");
     CursorView();
     cout.precision(3);
     SetConsoleOutputCP(CP_UTF8);
