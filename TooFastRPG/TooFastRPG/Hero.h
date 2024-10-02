@@ -1,5 +1,4 @@
 #pragma once
-#include "stdafx.h"
 #include "Observer.h"
 
 class Hero : public Observer
@@ -21,7 +20,7 @@ private:
 public:
     Hero(int startX, int startY) : x(startX), y(startY), isCollision(false), holy(0), isHide(true), canHide(0) {}
     Hero(int startX, int startY, int h) : x(startX), y(startY), isCollision(false), holy(h), isHide(true), canHide(0) {}
-    Hero(int startX, int startY, int h, int ch) : x(startX), y(startY), isCollision(false), holy(0), isHide(true), canHide(ch) {}
+    Hero(int startX, int startY, int h, int ch) : x(startX), y(startY), isCollision(false), holy(h), isHide(true), canHide(ch) {}
 
 
     void HandleInput(vector<vector<int>> m);

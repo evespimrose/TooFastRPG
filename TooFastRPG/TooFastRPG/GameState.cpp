@@ -1,8 +1,9 @@
 #include "GameState.h"
 
 
-GameState::GameState(int s, Hero* h, vector<Resident*> r, Pendant* p, Portal* po) : stage(s), hero(h), residents(r), pendant(p), portal(po)
+GameState::GameState(int s, Hero* h, vector<Resident*> r, Pendant* p, Portal* po) : hero(h), residents(r), pendant(p), portal(po)
 {
+    SetStage(s);
     this->AddObserver(hero);
 
     vector<vector<string>> c(MAPMAXW, vector<string>(MAPMAXH, " "));
@@ -10,28 +11,7 @@ GameState::GameState(int s, Hero* h, vector<Resident*> r, Pendant* p, Portal* po
     SetBackBuffer(c);
 
     MyMap mm;
-    mm.CreateMap();
     SetMapBuffer(mm.stages[stage]);
-
-    /*switch (stage)
-    {
-    case 0:
-        break;
-    case 1:
-        break;
-    case 2:
-        break;
-    case 3:
-        break;
-    case 4:
-        break;
-    case 5:
-        break;
-    case 6:
-        break;
-    default:
-        break;
-    }*/
 
     hero->setHide(1000.0 - (double)(stage * 200));
 
@@ -44,7 +24,7 @@ GameState::GameState(int s, Hero* h, vector<Resident*> r, Pendant* p, Portal* po
 
 }
 
-GameState::GameState(int s, Hero* h, vector<Resident*> r, Pendant* p, Portal* po, vector<vector<int>> map) : stage(s), hero(h), residents(r), pendant(p), portal(po), mapBuffer(map)
+GameState::GameState(int s, Hero* h, vector<Resident*> r, Pendant* p, Portal* po, vector<vector<int>> map) : hero(h), residents(r), pendant(p), portal(po), mapBuffer(map)
 {
     this->AddObserver(hero);
 
@@ -69,7 +49,6 @@ void GameState::HandleInput()
         SaveFile();
     }
     hero->HandleInput(mapBuffer);
-
 }
 
 void GameState::Update() 
@@ -118,14 +97,14 @@ void GameState::Render()
     for (auto& resident : residents) 
         resident->Render();
 
-
     pendant->Render();
 
     portal->Render();
 
-    cout << " hero->getHide() : " << boolalpha << hero->getHide() << endl;
+    //cout << " hero->getHide() : " << boolalpha << hero->getHide() << "\n";
+    cout << "현재 진행도 저장 : F1\n";
 
-    CallBack();
+    //CallBack();
 }
 
 void GameState::SaveFile()
@@ -232,15 +211,15 @@ void GameState::Collision()
 
     if (c == Call::ResidentCollision)
     {
-        if (hero->getHoly() > 0)
+        /*if (hero->getHoly() > 0)
         {
             hero->setHoly(hero->getHoly() - 1);
         }
         else
         {
+            InitSaveFile();
             call = Call::EnterMainMenuState;
-
-        }
+        }*/
         hero->setPrevCall(Call::None);
     }
     else if (c == Call::PendantCollision)
@@ -250,7 +229,8 @@ void GameState::Collision()
     }
     else if (c == Call::PortalCollision)
     {
+        SetGameFile(stage, hero);
         call = Call::EnterNextStageGameState;
-        //hero->setPrevCall(Call::None);
+        hero->setPrevCall(Call::None);
     }
 }

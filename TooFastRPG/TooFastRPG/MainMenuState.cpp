@@ -20,13 +20,17 @@ void MainMenuState::HandleInput()
 
     switch (ch)
     {
-    case 27:
     case 'Q':
+        exit(1);
         break;
     case 32:
     {
-        call = Call::EnterSavedGameState;
-        parsingSaveFile(vs);
+        if (parsingSaveFile(vs))
+        {
+            cout << "파일 불러오기 완료\n";
+            call = Call::EnterSavedGameState;
+        }
+        else cout << "불러올 파일이 없습니다!\n";
         break;
     }
         
@@ -61,7 +65,7 @@ void MainMenuState::Render()
         i = " ";
     }
 
-    CallBack();
+    //CallBack();
 }
 
 void MainMenuState::DrawSceneToBackBuffer()

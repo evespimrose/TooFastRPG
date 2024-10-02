@@ -11,7 +11,6 @@ void Pendant::Update()
 
 void Pendant::Render()
 {
-    std::cout << "Nun at (" << x << ", " << y << "), chasity : " << isRender << "                                  \n";
 }
 
 void Pendant::Move(vector<vector<int>> v)

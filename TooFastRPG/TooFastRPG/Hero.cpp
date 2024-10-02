@@ -48,7 +48,7 @@ void Hero::HandleInput(vector<vector<int>> m)
 
     if (GetAsyncKeyState(VK_SHIFT) & 0x8000)
     {
-        prevCall = Call::ResidentCollision;
+        prevCall = Call::PortalCollision;
     }
 
     if (hide_Up && hide_Down && hide_Left && hide_Right)
@@ -70,12 +70,13 @@ void Hero::Update()
 
 void Hero::Render()
 {
-    if(!isCollision)
+    cout << "은신 잔여 게이지 : " << fixed << canHide / (double)10 << " %\n";
+    /*if(!isCollision)
         cout << "Hero at (" << x << ", " << y << ")                           \n";
     else
         cout << "충돌! Hero: (" << x << ", " << y << ")                        \n";
 
-    cout << "은신 잔여 게이지 : " << fixed << canHide / (double)10 << " %                              \n";
+                                 \n";
     cout << "holy : " << holy << "                                                            \n";
     cout << "Hero State : ";
     switch (prevCall)
@@ -105,7 +106,7 @@ void Hero::Render()
         break;
     default:
         break;
-    }
+    }*/
 }
 
 void Hero::OnNotify(Socket s)

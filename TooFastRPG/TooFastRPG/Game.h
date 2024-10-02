@@ -1,6 +1,9 @@
 #pragma once
 #include "stdafx.h"
 #include "GameState.h"
+#include "MainMenuState.h"
+#include "GameClearState.h"
+
 
 class Game : public Observer
 {
@@ -20,6 +23,8 @@ public:
     void ChangeState(State* newState);
 
     void Update();
+
+    void HandleInput();
 
     void OnNotify(Socket s) override {}
 };

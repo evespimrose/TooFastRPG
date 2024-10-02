@@ -9,7 +9,7 @@ void Game::Run()
         auto frameStart = chrono::high_resolution_clock::now();
 
         // 1. 입력 처리
-        currentState->HandleInput();
+        HandleInput();
 
         // 2. 게임 상태 업데이트
         Update();
@@ -35,6 +35,16 @@ void Game::ChangeState(State* newState)
     currentState = newState;
 }
 
+
+void Game::HandleInput()
+{
+    if (GetAsyncKeyState(VK_ESCAPE) & 0x8000)
+    {
+        isRunning = false;
+    }
+    currentState->HandleInput();
+}
+
 void Game::Update()
 {
     currentState->Update();
@@ -48,7 +58,6 @@ void Game::Update()
         case Call::EnterGameState:
         {
             Hero* hero = new Hero(1, MAPMAXH - 2);
-            cout << "Hero Done\n";
             int stage = 0;
 
             // 주민 리스트 초기화
@@ -59,18 +68,12 @@ void Game::Update()
                 new Resident(stage + 1, 20, 20),
                 new Resident(stage + 1, 30, 20)
             };
-            cout << "Resident Done\n";
 
             Pendant* pendant = new Pendant(11, 2);
-            cout << "Pendant Done\n";
-
 
             Portal* portal = new Portal(MAPMAXW - 2, 1);
-            cout << "Portal Done\n";
-
 
             GameState* gamestate = new GameState(stage, hero, residents, pendant, portal);
-            cout << "GameState Done\n";
 
             ChangeState(gamestate);
 
@@ -102,7 +105,6 @@ void Game::Update()
                 else if (vs[i] == "Portal")   po = new Portal(stoi(vs[i + 1]), stoi(vs[i + 2]));
                 else if (vs[i] == "Map")
                 {
-                    cout << "MapCheck : Good" << endl;
                     for (int j = 0; j < MAPMAXH; ++j)
                     {
                         for (int k = 0; k < MAPMAXW; ++k)
@@ -122,7 +124,78 @@ void Game::Update()
         }
         case Call::EnterNextStageGameState:
         {
+            int stage = currentState->getStage() + 1;
 
+            Hero* h = {};
+            vector<Resident*> r = {};
+            Pendant* p = {};
+            Portal* po = {};
+
+            switch (stage)
+            {
+            case 1:
+            {
+                GameFile gf = currentState->getGameFile();
+                h = new Hero(1, 1, gf.h->getHoly());
+
+                r.push_back(new Resident(stage + 1, 22, 8));
+                r.push_back(new Resident(stage + 1, 5, 6));
+                r.push_back(new Resident(stage + 1, 20, 20));
+                r.push_back(new Resident(stage + 1, 35, 20));
+                r.push_back(new Resident(stage + 1, 15, 11));
+
+                p = new Pendant(15, 15);
+                po = new Portal(MAPMAXW - 2, MAPMAXH - 2);
+
+                State* gamestate = new GameState(stage, h, r, p, po);
+                ChangeState(gamestate);
+                break;
+            }
+            case 2:
+            {
+                GameFile gf = currentState->getGameFile();
+                h = new Hero(MAPMAXW - 2, 1, gf.h->getHoly());
+                r.push_back(new Resident(stage + 1, 22, 8));
+                r.push_back(new Resident(stage + 1, 5, 6));
+                r.push_back(new Resident(stage + 1, 20, 20));
+                r.push_back(new Resident(stage + 1, 35, 20));
+                r.push_back(new Resident(stage + 1, 4, 16));
+                r.push_back(new Resident(stage + 1, 6, 10));
+                r.push_back(new Resident(stage + 1, 11, 20));
+                p = new Pendant(30, 30);
+                po = new Portal(1, MAPMAXH - 2);
+                State* gamestate = new GameState(stage, h, r, p, po);
+                ChangeState(gamestate);
+                break;
+            }
+            case 3:
+            {
+                GameFile gf = currentState->getGameFile();
+                h = new Hero(MAPMAXW - 2, MAPMAXH - 2, gf.h->getHoly());
+                r.push_back(new Resident(stage + 1, 22, 8));
+                r.push_back(new Resident(stage + 1, 5, 6));
+                r.push_back(new Resident(stage + 1, 20, 20));
+                r.push_back(new Resident(stage + 1, 35, 20));
+                r.push_back(new Resident(stage + 1, 4, 16));
+                r.push_back(new Resident(stage + 1, 6, 10));
+                r.push_back(new Resident(stage + 1, 11, 20));
+                r.push_back(new Resident(stage + 1, 30, 30));
+                r.push_back(new Resident(stage + 1, 22, 7));
+                p = new Pendant(30, 30);
+                po = new Portal(1, 1);
+                State* gamestate = new GameState(stage, h, r, p, po);
+                ChangeState(gamestate);
+                break;
+            }
+            case 4:
+            {
+                State* s = new GameClearState();
+                ChangeState(s);
+                break;
+            }
+            default:
+                break;
+            }
             break;
         }
         default:
@@ -130,3 +203,4 @@ void Game::Update()
         }
     }
 }
+

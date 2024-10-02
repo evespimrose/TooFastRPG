@@ -20,7 +20,6 @@ void Resident::Update(vector<vector<int>> v)
 
 void Resident::Render()
 {
-    std::cout << "Resident at (" << x << ", " << y << "), moveCount : " << moveCountX << ", " << moveCountY << "                                    \n";
 }
 
 void Resident::Move(vector<vector<int>> v)

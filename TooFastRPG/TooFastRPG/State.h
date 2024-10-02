@@ -1,19 +1,37 @@
 #pragma once
 #include "stdafx.h"
 #include "Observer.h"
+#include "Hero.h"
+#include "Resident.h"
+#include "Pendant.h"
+#include "Portal.h"
+
+
+extern struct GameFile
+{
+    int stage = {};
+    Hero* h = {};
+};
 
 class State : public Subject
 {
 protected:
     Call call = Call::None;
     vector<string> vs = {};
+    int stage = {};
+    GameFile gamefile = {};
+
     public:
         virtual ~State() {}
         virtual void HandleInput() = 0;
         virtual void Update() = 0;
         virtual void Render() = 0;
 
+        void SetStage(int i) { stage = i; }
+
         Call getCall() { return call; }
+        int getStage() { return stage; }
+        GameFile getGameFile() { return gamefile; }
 
         void CallBack()
         {
@@ -56,20 +74,25 @@ protected:
             }
         }
 
-        void parsingSaveFile(vector<string>& vs)
+        bool parsingSaveFile(vector<string>& vs)
         {
             ifstream file;
 
             file.open("output.txt", ifstream::in);
 
             string line;
-            
+            cout << "file open\n";
             getline(file, line);
+            cout << "file open2\n";
 
             int num = stoi(line);
+            cout << "file open3\n";
 
             if (num == 0)
-                return;
+            {
+                return false;
+            }
+
 
             for (int i = 0; i < num; ++i)
             {
@@ -78,6 +101,7 @@ protected:
             }
 
             file.close();
+            return true;
         }
 
         virtual void SaveFile() = 0;
