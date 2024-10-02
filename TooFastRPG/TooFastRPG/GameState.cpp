@@ -120,7 +120,8 @@ void GameState::SaveFile()
 
     vs.push_back(to_string(hero->getX()));
     vs.push_back(to_string(hero->getY()));
-    num += 3;
+    vs.push_back(to_string(hero->getHoly()));
+    num += 4;
 
     for (auto& resident : residents)
     {
@@ -211,7 +212,7 @@ void GameState::Collision()
 
     if (c == Call::ResidentCollision)
     {
-        /*if (hero->getHoly() > 0)
+        if (hero->getHoly() > 0)
         {
             hero->setHoly(hero->getHoly() - 1);
         }
@@ -219,7 +220,7 @@ void GameState::Collision()
         {
             InitSaveFile();
             call = Call::EnterMainMenuState;
-        }*/
+        }
         hero->setPrevCall(Call::None);
     }
     else if (c == Call::PendantCollision)

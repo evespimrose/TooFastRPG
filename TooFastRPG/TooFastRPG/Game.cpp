@@ -99,7 +99,7 @@ void Game::Update()
             for (int i = 0; i < vs.size();++i)
             {
                 if (vs[i] == "Stage")         stage = stoi(vs[i + 1]);
-                else if (vs[i] == "Hero")     h = new Hero(stoi(vs[i + 1]), stoi(vs[i + 2]));
+                else if (vs[i] == "Hero")     h = new Hero(stoi(vs[i + 1]), stoi(vs[i + 2]), stoi(vs[i + 3]));
                 else if (vs[i] == "Resident") r.push_back(new Resident(stage + 1, stoi(vs[i + 1]), stoi(vs[i + 2])));
                 else if (vs[i] == "Pendant")  p = new Pendant(stoi(vs[i + 1]), stoi(vs[i + 2]));
                 else if (vs[i] == "Portal")   po = new Portal(stoi(vs[i + 1]), stoi(vs[i + 2]));
@@ -138,13 +138,13 @@ void Game::Update()
                 GameFile gf = currentState->getGameFile();
                 h = new Hero(1, 1, gf.h->getHoly());
 
-                r.push_back(new Resident(stage + 1, 22, 8));
+                r.push_back(new Resident(stage + 1, 6, 22));
                 r.push_back(new Resident(stage + 1, 5, 6));
-                r.push_back(new Resident(stage + 1, 20, 20));
+                r.push_back(new Resident(stage + 1, 28, 20));
                 r.push_back(new Resident(stage + 1, 35, 20));
-                r.push_back(new Resident(stage + 1, 15, 11));
+                r.push_back(new Resident(stage + 1, 4, 16));
 
-                p = new Pendant(15, 15);
+                p = new Pendant(6, 6);
                 po = new Portal(MAPMAXW - 2, MAPMAXH - 2);
 
                 State* gamestate = new GameState(stage, h, r, p, po);
@@ -155,13 +155,13 @@ void Game::Update()
             {
                 GameFile gf = currentState->getGameFile();
                 h = new Hero(MAPMAXW - 2, 1, gf.h->getHoly());
-                r.push_back(new Resident(stage + 1, 22, 8));
+                r.push_back(new Resident(stage + 1, 6, 22));
                 r.push_back(new Resident(stage + 1, 5, 6));
-                r.push_back(new Resident(stage + 1, 20, 20));
+                r.push_back(new Resident(stage + 1, 28, 20));
                 r.push_back(new Resident(stage + 1, 35, 20));
                 r.push_back(new Resident(stage + 1, 4, 16));
                 r.push_back(new Resident(stage + 1, 6, 10));
-                r.push_back(new Resident(stage + 1, 11, 20));
+                r.push_back(new Resident(stage + 1, 2, 20));
                 p = new Pendant(30, 30);
                 po = new Portal(1, MAPMAXH - 2);
                 State* gamestate = new GameState(stage, h, r, p, po);

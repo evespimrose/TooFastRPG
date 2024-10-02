@@ -50,7 +50,7 @@ void GameClearState::Render()
 
 void GameClearState::DrawSceneToBackBuffer()
 {
-    string s = "\n\n\n\n\n                  Game Clear!!!!!!!!!!!\n\n\n\n\n\n\n\n\n\n                  메인 메뉴로 돌아가려면 q/Q를 누르세요.\n";
+    string s = "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n                                      Game Clear!!!!!!!!!!!\n\n\n\n\n\n\n\n\n\n                              메인 메뉴로 돌아가려면 q / Q를 누르세요.\n";
     *backBuffer->begin() = s;
 }
 
