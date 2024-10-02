@@ -1,22 +1,9 @@
 #pragma once
 
-enum class Call
-{
-    None,
-
-    EnterGameState,
-
-    NunCollision,
-    ResidentCollision,
-
-};
-
 class Observer 
 {
 public:
-    virtual void OnNotify(Call c, int x, int y) = 0;
-    virtual void OnNotify(Call c, int x, int y, bool& flag) = 0;
-    virtual void OnNotify(Call c) = 0;
+    virtual void OnNotify(Socket s) = 0;
 };
 
 class Subject 
@@ -30,27 +17,12 @@ public:
         observers.push_back(observer);
     }
 
-    void Notify(Call c, int x, int y)
+    void Notify(Socket s)
     {
         for (Observer* observer : observers) 
         {
-            observer->OnNotify(c, x, y);
+            observer->OnNotify(s);
         }
     }
 
-    void Notify(Call c, int x, int y, bool& flag)
-    {
-        for (Observer* observer : observers)
-        {
-            observer->OnNotify(c, x, y, flag);
-        }
-    }
-
-    void Notify(Call c)
-    {
-        for (Observer* observer : observers)
-        {
-            observer->OnNotify(c);
-        }
-    }
 };

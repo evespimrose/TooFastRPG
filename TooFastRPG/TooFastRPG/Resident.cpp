@@ -7,8 +7,15 @@ void Resident::Update(vector<vector<int>> v)
     // 일정 간격으로 주민이 이동함
     Move(v);
 
-    if (oldX != x || oldY != y) 
-        Notify(Call::ResidentCollision, x, y); // Hero에게 새로운 좌표 통보
+    if (oldX != x || oldY != y)
+    {
+        Socket s;
+        s.call = Call::ResidentCollision;
+        s.x = x;
+        s.y = y;
+        Notify(s); // Hero에게 새로운 좌표 통보
+    }
+        
 }
 
 void Resident::Render()

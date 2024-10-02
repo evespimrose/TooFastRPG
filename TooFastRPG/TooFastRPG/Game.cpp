@@ -1,4 +1,7 @@
 #include "Game.h"
+#include "MainMenuState.h"
+#include "GameState.h"
+
 
 void Game::Run()
 {
@@ -9,21 +12,10 @@ void Game::Run()
         currentState->HandleInput();
 
         // 2. 게임 상태 업데이트
-        currentState->Update();
+        Update();
 
         // 3. 화면 렌더링 (이중 버퍼링 활용)
         currentState->Render();
-
-        if (currentState->getCall() != Call::None)
-        {
-            switch (currentState->getCall())
-            {
-            case Call::None:
-                break;
-            default:
-                break;
-            }
-        }
 
         auto frameTime = chrono::high_resolution_clock::now() - frameStart;
         int frameDuration = chrono::duration_cast<chrono::milliseconds>(frameTime).count();
@@ -32,6 +24,8 @@ void Game::Run()
             this_thread::sleep_for(chrono::milliseconds(frameDelay - frameDuration));
     }
 }
+
+
 
 void Game::Stop()
 {
@@ -42,4 +36,27 @@ void Game::ChangeState(State* newState)
 {
     delete currentState;
     currentState = newState;
+}
+
+void Game::Update()
+{
+    currentState->Update();
+
+    if (currentState->getCall() != Call::None)
+    {
+        switch (currentState->getCall())
+        {
+        case Call::None:
+            break;
+        case Call::EnterGameState:
+            // 다음 스테이지로
+            break;
+        case Call::EnterMainMenuState:
+            State* s = new MainMenuState();
+            ChangeState(s);
+            break;
+        default:
+            break;
+        }
+    }
 }

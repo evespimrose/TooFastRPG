@@ -19,8 +19,8 @@ public:
 
     void ChangeState(State* newState);
 
-    void OnNotify(Call c, int x, int y) override {}
-    void OnNotify(Call c, int X, int Y, bool& flag) override {};
-    void OnNotify(Call c) override {}
+    void Update();
+
+    void OnNotify(Socket s) override {}
 };
 

@@ -3,7 +3,8 @@
 #include "State.h"
 #include "Hero.h"
 #include "Resident.h"
-#include "Nun.h"
+#include "Pendant.h"
+#include "Portal.h"
 
 
 class GameState : public State
@@ -11,14 +12,17 @@ class GameState : public State
 private:
     Hero* hero;
     vector<Resident*> residents;
-    vector<Nun*> nuns;
+    vector<Pendant*> pendants;
+    Portal* portal;
+
+    int stage;
 
     vector<vector<string>> frontBuffer = {};
     vector<vector<string>> backBuffer = {};
     vector<vector<int>> mapBuffer = {};
 
 public:
-    GameState(int stage, Hero* hero, vector<Resident*> residents, vector<Nun*> nuns);
+    GameState(int s, Hero* hero, vector<Resident*> residents, vector<Pendant*> pendants, Portal* portal);
 
     void HandleInput() override;
 
@@ -33,5 +37,8 @@ public:
 
     void SetMapBuffer(vector<vector<int>>& i) { mapBuffer = i; }
 
+    void Collision();
+
+    int getStage() { return stage; }
 };
 

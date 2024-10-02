@@ -14,26 +14,25 @@ int main()
     int stage = 0;
 
     // 주민 리스트 초기화
-    std::vector<Resident*> residents = 
+    vector<Resident*> residents = 
     {
         new Resident(stage + 1, 16, 2),
         new Resident(stage + 1, 5, 6),
         new Resident(stage + 1, 20, 20)
-
     };
 
-    std::vector<Nun*> nuns =
+    vector<Pendant*> pendants =
     {
-        new Nun(stage + 1, 16, 2),
+        new Pendant(16, 2),
 
     };
 
-    
+    Portal* portal = new Portal(MAPMAXW - 2, 1);
 
     srand(time(NULL));
     // 메인 메뉴 상태로 초기화
     MainMenuState* mainMenu = new MainMenuState();
-    GameState* gamestate = new GameState(stage, hero, residents, nuns);
+    GameState* gamestate = new GameState(stage, hero, residents, pendants, portal);
     Game game(gamestate);
 
     // 게임 루프 실행

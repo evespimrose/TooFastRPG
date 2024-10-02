@@ -9,6 +9,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <random>
+#include <algorithm>
 #include <Windows.h>
 using namespace std;
 
@@ -46,6 +47,26 @@ inline void CursorView()
     cursorInfo.bVisible = FALSE; //커서 Visible TRUE(보임) FALSE(숨김)
     SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursorInfo);
 }
+
+enum class Call
+{
+    None,
+
+    EnterGameState,
+    EnterMainMenuState,
+
+    PendantCollision,
+    ResidentCollision,
+    PortalCollision
+};
+
+extern struct Socket
+{
+    Call call = Call::None;
+    int x = 0;
+    int y = 0;
+    bool flag = false;
+};
 
 /*
     Stage마다 다르게 Map 제작할것.

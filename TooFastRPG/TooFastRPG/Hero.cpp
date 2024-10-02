@@ -73,36 +73,24 @@ void Hero::Render()
         cout << "충돌! Hero: (" << x << ", " << y << ")                        \n";
 
     cout << "은신 잔여 게이지 : " << fixed << canHide / (double)10 << " %                              \n";
+    cout << "holy : " << holy << "                                                            \n";
 }
 
-void Hero::OnNotify(Call c, int X, int Y, bool& flag)
+void Hero::OnNotify(Socket s)
 {
-    switch (c)
+    switch (s.call)
     {
     case Call::None:
         break;
     case Call::EnterGameState:
         break;
-    case Call::NunCollision:
-        holy += x == X && y == Y ? 1 : 0;
-        flag = false;
+    case Call::PendantCollision:
+        holy += x == s.x && y == s.y ? 1 : 0;
+        prevCall = Call::PendantCollision;
         break;
     case Call::ResidentCollision:
-        isCollision = x == X && y == Y ? true : false;
-        break;
-    default:
-        break;
-    }
-    
-
-}
-
-void Hero::OnNotify(Call c)
-{
-    switch (c)
-    {
-    case Call::NunCollision:
-
+        isCollision = x == s.x && y == s.y ? true : false;
+        prevCall = Call::ResidentCollision;
         break;
     default:
         break;
