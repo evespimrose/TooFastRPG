@@ -181,6 +181,11 @@ void Game::Update()
                 r.push_back(new Resident(stage + 1, 11, 20));
                 r.push_back(new Resident(stage + 1, 30, 30));
                 r.push_back(new Resident(stage + 1, 22, 7));
+                r.push_back(new Resident(stage + 1, 15, 16));
+                r.push_back(new Resident(stage + 1, 26, 10));
+                r.push_back(new Resident(stage + 1, 31, 20));
+                r.push_back(new Resident(stage + 1, 30, 10));
+                r.push_back(new Resident(stage + 1, 22, 17));
                 p = new Pendant(30, 30);
                 po = new Portal(1, 1);
                 State* gamestate = new GameState(stage, h, r, p, po);
