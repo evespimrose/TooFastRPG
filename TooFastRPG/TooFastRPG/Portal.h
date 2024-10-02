@@ -12,7 +12,7 @@ private:
 public:
     Portal(int startX, int startY) : x(startX), y(startY), isCollision(false) {}
 
-    void Update(vector<vector<int>> v);
+    void Update();
 
     void Render();
 

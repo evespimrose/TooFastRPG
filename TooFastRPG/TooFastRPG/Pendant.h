@@ -13,7 +13,7 @@ private:
 public:
     Pendant(int startX, int startY) : x(startX), y(startY), isCollision(false) {}
 
-    void Update(vector<vector<int>> v);
+    void Update();
 
     void Render();
 
@@ -21,4 +21,5 @@ public:
     int getY() { return y; }
     bool getisRender() { return isRender; }
 
+    void Move(vector<vector<int>> v);
 };

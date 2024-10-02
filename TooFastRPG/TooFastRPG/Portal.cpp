@@ -1,7 +1,6 @@
-
 #include "Portal.h"
 
-void Portal::Update(vector<vector<int>> v)
+void Portal::Update()
 {
     Socket s;
     s.call = Call::PortalCollision;

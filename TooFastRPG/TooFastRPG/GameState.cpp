@@ -1,7 +1,7 @@
 #include "GameState.h"
 
 
-GameState::GameState(int s, Hero* h, vector<Resident*> r, vector<Pendant*> p, Portal* po) : stage(s), hero(h), residents(r), pendants(p), portal(po)
+GameState::GameState(int s, Hero* h, vector<Resident*> r, Pendant* p, Portal* po) : stage(s), hero(h), residents(r), pendant(p), portal(po)
 {
     this->AddObserver(hero);
 
@@ -33,13 +33,12 @@ GameState::GameState(int s, Hero* h, vector<Resident*> r, vector<Pendant*> p, Po
         break;
     }*/
 
-    hero->SetHide(1000.0 - (double)(s * 200));
+    hero->setHide(1000.0 - (double)(s * 200));
 
     for (auto* resident : residents) 
         resident->AddObserver(hero); 
 
-    for (auto* pendant : pendants)
-        pendant->AddObserver(hero);
+    pendant->AddObserver(hero);
 
     portal->AddObserver(hero);
 
@@ -52,15 +51,18 @@ void GameState::HandleInput()
 
 void GameState::Update() 
 {
+
     hero->Update(mapBuffer);
 
     for (auto& resident : residents)
         resident->Update(mapBuffer);
 
-    for (auto& nun : pendants)
-        nun->Update(mapBuffer);
+    pendant->Update();
+
+    portal->Update();
 
     Collision();
+
 }
 
 void GameState::Render() 
@@ -73,7 +75,7 @@ void GameState::Render()
     {
         for (auto& j : i)
         {
-            cout << j << " ";
+            cout << j;
         }
         cout << "\n";
     }
@@ -91,8 +93,12 @@ void GameState::Render()
     for (auto& resident : residents) 
         resident->Render();
 
-    for (auto& pendant : pendants)
-        pendant->Render();
+
+    pendant->Render();
+
+    portal->Render();
+
+    CallBack();
 }
 
 void GameState::DrawSceneToBackBuffer() 
@@ -109,9 +115,6 @@ void GameState::DrawSceneToBackBuffer()
             case 1:
                 backBuffer[i][j] = "■ ";
                 break;
-            case 2:
-                backBuffer[i][j] = "★";
-                break;
             default:
                 break;
             }
@@ -122,12 +125,14 @@ void GameState::DrawSceneToBackBuffer()
         backBuffer[hero->getY()][hero->getX()] = "H ";
     else if(!hero->getCanHide())
         backBuffer[hero->getY()][hero->getX()] = "H ";
+
     for (auto& r : residents)         
         backBuffer[r->getY()][r->getX()] = "R ";
 
-    for (auto& p : pendants)
-        if(p->getisRender())
-            backBuffer[p->getY()][p->getX()] = "P ";
+    if (pendant->getisRender())
+        backBuffer[pendant->getY()][pendant->getX()] = "P ";
+
+    backBuffer[portal->getY()][portal->getX()] = "★";
 }
 
 void GameState::Collision()
@@ -135,21 +140,52 @@ void GameState::Collision()
     Call c = hero->getPrevCall();
     Hero* h = hero;
 
-    if (c != Call::None)
+    if (c == Call::EnterGameState) int a = 0;
+    else if (c == Call::ResidentCollision)
     {
-        switch (c)
-        {
-        case Call::PendantCollision:
-            pendants.erase(remove_if(pendants.begin(), pendants.end(), [&h](Pendant*& p) { return h->getX() == p->getX() && h->getY() == p->getY(); }), pendants.end());
-            break;
-        case Call::ResidentCollision:
+        if (hero->getHoly() > 0)
+            hero->setHoly(hero->getHoly() - 1);
+        else
             call = Call::EnterMainMenuState;
-            break;
-        case Call::PortalCollision:
-            call = Call::EnterGameState;
-            break;
-        default:
-            break;
-        }
+        //hero->setPrevCall(Call::None);
     }
+    else if (c == Call::PendantCollision)
+    {
+        pendant->Move(mapBuffer);
+        hero->setPrevCall(Call::None);
+    }
+    else if (c == Call::PortalCollision)
+    {
+        call = Call::EnterGameState;
+    }
+
+    //if (c != Call::None)
+    //{
+    //    switch (c)
+    //    {
+    //    case Call::ResidentCollision:
+    //    {
+    //        if (hero->getHoly() > 0)
+    //            hero->setHoly(hero->getHoly() - 1);
+    //        //else
+    //            //call = Call::EnterMainMenuState;
+    //        hero->setPrevCall(Call::None);
+
+    //        break;
+    //    }
+    //    case Call::PendantCollision:
+    //    {
+    //        pendants.erase(remove_if(pendants.begin(), pendants.end(), [&h](Pendant*& p) { return h->getX() == p->getX() && h->getY() == p->getY(); }), pendants.end());
+    //        hero->setPrevCall(Call::None);
+    //        break;
+    //    }
+    //    case Call::PortalCollision:
+    //    {
+    //        call = Call::EnterGameState;
+    //        break;
+    //    }
+    //    default:
+    //        break;
+    //    }
+    //}
 }

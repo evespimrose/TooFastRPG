@@ -52,9 +52,11 @@ void Game::Update()
             // 다음 스테이지로
             break;
         case Call::EnterMainMenuState:
+        {
             State* s = new MainMenuState();
             ChangeState(s);
             break;
+        }
         default:
             break;
         }

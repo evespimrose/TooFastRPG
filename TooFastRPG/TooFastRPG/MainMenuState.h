@@ -5,14 +5,19 @@
 class MainMenuState : public State
 {
 private:
-    vector<vector<string>> frontBuffer = {};
-    vector<vector<string>> backBuffer = {};
+    vector<string>* frontBuffer = {};
+    vector<string>* backBuffer = {};
+
 public:
+    MainMenuState();
+    ~MainMenuState();
+
     void HandleInput() override;
     void Update() override;
 
     void Render() override;
 
     void DrawSceneToBackBuffer();
+
 };
 

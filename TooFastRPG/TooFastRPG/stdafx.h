@@ -3,15 +3,21 @@
 #include <chrono>
 #include <thread>
 #include <conio.h>
-
 #include <vector>
-
 #include <cstdlib>
 #include <ctime>
 #include <random>
 #include <algorithm>
 #include <Windows.h>
+#include <fstream>
+#include <map>
+#include "json.hpp"
+
 using namespace std;
+
+using json = nlohmann::json;
+
+ifstream file("data.txt", std::ios::in);
 
 #define MAPMAXW 40
 #define MAPMAXH 40
@@ -53,6 +59,7 @@ enum class Call
     None,
 
     EnterGameState,
+    EnterSavedGameState,
     EnterMainMenuState,
 
     PendantCollision,

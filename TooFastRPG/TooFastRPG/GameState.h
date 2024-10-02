@@ -12,7 +12,7 @@ class GameState : public State
 private:
     Hero* hero;
     vector<Resident*> residents;
-    vector<Pendant*> pendants;
+    Pendant* pendant;
     Portal* portal;
 
     int stage;
@@ -22,7 +22,7 @@ private:
     vector<vector<int>> mapBuffer = {};
 
 public:
-    GameState(int s, Hero* hero, vector<Resident*> residents, vector<Pendant*> pendants, Portal* portal);
+    GameState(int s, Hero* hero, vector<Resident*> residents, Pendant* pendant, Portal* portal);
 
     void HandleInput() override;
 

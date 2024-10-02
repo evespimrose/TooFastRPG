@@ -132,6 +132,7 @@
     <ClCompile Include="Hero.cpp" />
     <ClCompile Include="MainMenuState.cpp" />
     <ClCompile Include="Pendant.cpp" />
+    <ClCompile Include="Portal.cpp" />
     <ClCompile Include="Resident.cpp" />
     <ClCompile Include="TooFastRPG.cpp" />
   </ItemGroup>
@@ -141,6 +142,7 @@
     <ClInclude Include="MyMap.h" />
     <ClInclude Include="Pendant.h" />
     <ClInclude Include="Observer.h" />
+    <ClInclude Include="Portal.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="Hero.h" />
     <ClInclude Include="MainMenuState.h" />

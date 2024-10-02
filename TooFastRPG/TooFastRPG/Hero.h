@@ -29,11 +29,14 @@ public:
     void Render();
 
     void OnNotify(Socket s) override;
-    void SetHide(double i) { canHide = i; }
-    void SetPrevCall(Call c) { prevCall = c; }
+    void setHide(double i) { canHide = i; }
+    void setPrevCall(Call c) { prevCall = c; }
+    void setHoly(int h) { holy = h; }
+
 
     int getX() { return x; }
     int getY() { return y; }
+    int getHoly() { return holy; }
     bool getHide() { return isHide; }
     bool getCanHide() { return canHide; }
     Call getPrevCall() { return prevCall; }

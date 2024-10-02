@@ -1,6 +1,6 @@
 #include "Pendant.h"
 
-void Pendant::Update(vector<vector<int>> v)
+void Pendant::Update()
 {
     Socket s;
     s.call = Call::PendantCollision;
@@ -12,4 +12,17 @@ void Pendant::Update(vector<vector<int>> v)
 void Pendant::Render()
 {
     std::cout << "Nun at (" << x << ", " << y << "), chasity : " << isRender << "                                  \n";
+}
+
+void Pendant::Move(vector<vector<int>> v)
+{
+    int nextx = 0;
+    int nexty = 0;
+    while (v[nextx][nexty] != 0)
+    {
+        nextx = rand() % (MAPMAXW - 2) + 1;
+        nexty = rand() % (MAPMAXW - 2) + 1;
+    }
+    x = nextx;
+    y = nexty;
 }
