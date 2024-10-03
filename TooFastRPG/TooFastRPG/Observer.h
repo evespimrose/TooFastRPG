@@ -1,7 +1,7 @@
 #pragma once
 #include "stdafx.h"
 
-class Observer 
+interface Observer 
 {
 public:
     virtual void OnNotify(Socket s) = 0;
