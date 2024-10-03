@@ -201,7 +201,7 @@ void GameState::DrawSceneToBackBuffer()
         backBuffer[r->getY()][r->getX()] = "◎";
 
     if (pendant->getisRender())
-        backBuffer[pendant->getY()][pendant->getX()] = "P ";
+        backBuffer[pendant->getY()][pendant->getX()] = "§ ";
 
     backBuffer[portal->getY()][portal->getX()] = "★";
 }

@@ -19,8 +19,8 @@ void Pendant::Move(vector<vector<int>> v)
     int nexty = 0;
     while (v[nextx][nexty] != 0)
     {
-        nextx = rand() % (MAPMAXW - 2) + 1;
-        nexty = rand() % (MAPMAXW - 2) + 1;
+        nextx = rand() % (MAPMAXW - 3) + 1;
+        nexty = rand() % (MAPMAXW - 3) + 1;
     }
     x = nextx;
     y = nexty;

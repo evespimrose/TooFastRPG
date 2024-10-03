@@ -20,9 +20,6 @@ void MainMenuState::HandleInput()
 
     switch (ch)
     {
-    case 'Q':
-        exit(1);
-        break;
     case 32:
     {
         if (parsingSaveFile(vs))
