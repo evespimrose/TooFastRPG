@@ -117,9 +117,7 @@ void Game::Update()
             }
 
             State* gamestate = new GameState(stage, h, r, p, po);
-
             ChangeState(gamestate);
-
             break;
         }
         case Call::EnterNextStageGameState:
@@ -162,8 +160,9 @@ void Game::Update()
                 r.push_back(new Resident(stage + 1, 4, 16));
                 r.push_back(new Resident(stage + 1, 6, 10));
                 r.push_back(new Resident(stage + 1, 2, 20));
-                p = new Pendant(30, 30);
+                p = new Pendant(15, 15);
                 po = new Portal(1, MAPMAXH - 2);
+
                 State* gamestate = new GameState(stage, h, r, p, po);
                 ChangeState(gamestate);
                 break;
@@ -186,8 +185,9 @@ void Game::Update()
                 r.push_back(new Resident(stage + 1, 31, 20));
                 r.push_back(new Resident(stage + 1, 30, 10));
                 r.push_back(new Resident(stage + 1, 22, 17));
-                p = new Pendant(30, 30);
+                p = new Pendant(20, 30);
                 po = new Portal(1, 1);
+
                 State* gamestate = new GameState(stage, h, r, p, po);
                 ChangeState(gamestate);
                 break;

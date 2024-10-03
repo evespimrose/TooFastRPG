@@ -3,6 +3,7 @@
 
 GameState::GameState(int s, Hero* h, vector<Resident*> r, Pendant* p, Portal* po) : hero(h), residents(r), pendant(p), portal(po)
 {
+    system("cls");
     SetStage(s);
     this->AddObserver(hero);
 
@@ -171,7 +172,7 @@ void GameState::InitSaveFile()
 
 }
 
-void GameState::DrawSceneToBackBuffer() 
+void GameState::DrawSceneToBackBuffer()
 {
     for (int i = 0; i < mapBuffer.size(); ++i)
     {
@@ -191,16 +192,16 @@ void GameState::DrawSceneToBackBuffer()
         }
     }
 
-    if(!hero->getHide())
+    if (!hero->getHide())
         backBuffer[hero->getY()][hero->getX()] = "▲ ";
-    else if(!hero->getCanHide())
+    else if (!hero->getCanHide())
         backBuffer[hero->getY()][hero->getX()] = "▲ ";
 
-    for (auto& r : residents)         
+    for (auto& r : residents)
         backBuffer[r->getY()][r->getX()] = "◎";
 
     if (pendant->getisRender())
-        backBuffer[pendant->getY()][pendant->getX()] = "♣ ";
+        backBuffer[pendant->getY()][pendant->getX()] = "P ";
 
     backBuffer[portal->getY()][portal->getX()] = "★";
 }
