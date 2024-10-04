@@ -72,11 +72,3 @@ extern struct Socket
     int y = 0;
     bool flag = false;
 };
-
-
-
-/*
-    Stage마다 다르게 Map 제작할것.
-    주민, 용사가 각각 Map에 놓인 벽과 장애물에 부딪히면 못가거나 방향전환이 되야됨.
-
-*/

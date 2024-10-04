@@ -27,6 +27,8 @@ GameState::GameState(int s, Hero* h, vector<Resident*> r, Pendant* p, Portal* po
 
 GameState::GameState(int s, Hero* h, vector<Resident*> r, Pendant* p, Portal* po, vector<vector<int>> map) : hero(h), residents(r), pendant(p), portal(po), mapBuffer(map)
 {
+    system("cls");
+
     this->AddObserver(hero);
 
     vector<vector<string>> c(MAPMAXW, vector<string>(MAPMAXH, " "));
