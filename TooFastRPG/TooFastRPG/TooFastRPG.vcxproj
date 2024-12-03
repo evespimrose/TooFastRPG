@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameClearState.cpp" />
     <ClCompile Include="GameState.cpp" />
@@ -139,6 +140,7 @@
     <ClCompile Include="TooFastRPG.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="EventManager.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameClearState.h" />
     <ClInclude Include="GameState.h" />

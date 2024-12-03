@@ -1,29 +1,45 @@
 #pragma once
 #include "stdafx.h"
+#include <memory>
+#include "EventManager.h"
 
-interface Observer 
+class GameState;  // 전방 선언
+
+// 옵저버 인터페이스
+class Observer : public std::enable_shared_from_this<Observer> 
 {
 public:
-    virtual void OnNotify(Socket s) = 0;
+    virtual ~Observer() = default;
+    virtual void OnNotify(const Socket& data) = 0;
+    virtual string GetObserverName() const = 0;
+    virtual bool IsActive() const { return true; }
+
+protected:
+    void RegisterToEvent(EventType type, EventManager& eventManager) 
+    {
+        eventManager.Subscribe(type, weak_from_this());
+    }
+
+    friend class GameState;  // GameState에서 RegisterToEvent 접근 허용
+    friend class Subject;
 };
 
 class Subject 
 {
 private:
-    vector<Observer*> observers;
+    shared_ptr<EventManager> eventManager;
 
 public:
-    void AddObserver(Observer* observer) 
+    Subject(shared_ptr<EventManager> em) : eventManager(em) {}
+    virtual ~Subject() = default;
+
+    void RegisterObserver(Observer* observer, EventType type) 
     {
-        observers.push_back(observer);
+        observer->RegisterToEvent(type, *eventManager);
     }
 
-    void Notify(Socket s)
+    void NotifyEvent(EventType type, const Socket& data) 
     {
-        for (Observer* observer : observers) 
-        {
-            observer->OnNotify(s);
-        }
+        eventManager->Notify(type, data);
     }
-
 };

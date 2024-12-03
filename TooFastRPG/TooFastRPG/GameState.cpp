@@ -1,12 +1,14 @@
 #include "GameState.h"
 
 
-GameState::GameState(int s, Hero* h, vector<Resident*> r, Pendant* p, Portal* po) : hero(h), residents(r), pendant(p), portal(po)
+GameState::GameState(shared_ptr<EventManager> em, int s, Hero* h, vector<Resident*> r, Pendant* p, Portal* po)
+    : State(em), hero(h), residents(r), pendant(p), portal(po)
 {
     system("cls");
     SetStage(s);
-    this->AddObserver(hero);
-
+    
+    hero->RegisterToEvent(EventType::Collision, *em);
+    
     vector<vector<string>> c(MAPMAXW, vector<string>(MAPMAXH, " "));
     SetFrontBuffer(c);
     SetBackBuffer(c);
@@ -16,19 +18,14 @@ GameState::GameState(int s, Hero* h, vector<Resident*> r, Pendant* p, Portal* po
 
     hero->setHide(1000.0 - (double)(stage * 200));
 
-    for (auto* resident : residents) 
-        resident->AddObserver(hero); 
-
-    pendant->AddObserver(hero);
-
-    portal->AddObserver(hero);
 }
 
-GameState::GameState(int s, Hero* h, vector<Resident*> r, Pendant* p, Portal* po, vector<vector<int>> map) : hero(h), residents(r), pendant(p), portal(po), mapBuffer(map)
+GameState::GameState(shared_ptr<EventManager> em, int s, Hero* h, vector<Resident*> r, Pendant* p, Portal* po, vector<vector<int>> map)
+    : State(em), hero(h), residents(r), pendant(p), portal(po), mapBuffer(map)
 {
     system("cls");
-
-    this->AddObserver(hero);
+    
+    hero->RegisterToEvent(EventType::Collision, *em);
 
     vector<vector<string>> c(MAPMAXW, vector<string>(MAPMAXH, " "));
     SetFrontBuffer(c);
@@ -36,12 +33,6 @@ GameState::GameState(int s, Hero* h, vector<Resident*> r, Pendant* p, Portal* po
 
     hero->setHide(1000.0 - (double)(stage * 200));
 
-    for (auto* resident : residents)
-        resident->AddObserver(hero);
-
-    pendant->AddObserver(hero);
-
-    portal->AddObserver(hero);
 }
 
 void GameState::HandleInput() 

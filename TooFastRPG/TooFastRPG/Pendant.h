@@ -11,7 +11,7 @@ private:
     bool isRender = true;
 
 public:
-    Pendant(int startX, int startY) : x(startX), y(startY), isCollision(false) {}
+    Pendant(shared_ptr<EventManager> em, int startX, int startY) : Subject(em), x(startX), y(startY), isCollision(false) {}
 
     void Update();
 

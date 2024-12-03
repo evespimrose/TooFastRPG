@@ -2,11 +2,8 @@
 
 void Portal::Update()
 {
-    Socket s;
-    s.call = Call::PortalCollision;
-    s.x = x;
-    s.y = y;
-    Notify(s);
+    Socket data{Call::PortalCollision, x, y};
+    NotifyEvent(EventType::Collision, data);
 }
 
 void Portal::Render()

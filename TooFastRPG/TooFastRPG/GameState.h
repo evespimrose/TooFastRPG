@@ -27,9 +27,8 @@ private:
     unique_ptr<SaveManager> saveManager;
 
 public:
-    GameState(int s, Hero* hero, vector<Resident*> residents, Pendant* pendant, Portal* portal);
-    GameState(int s, Hero* hero, vector<Resident*> residents, Pendant* pendant, Portal* portal, vector<vector<int>> map);
-
+    GameState(shared_ptr<EventManager> em, int s, Hero* hero, vector<Resident*> residents, Pendant* pendant, Portal* portal);
+    GameState(shared_ptr<EventManager> em, int s, Hero* hero, vector<Resident*> residents, Pendant* pendant, Portal* portal, vector<vector<int>> map);
 
     void HandleInput() override;
 

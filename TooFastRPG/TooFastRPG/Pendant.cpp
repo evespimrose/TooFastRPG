@@ -2,11 +2,8 @@
 
 void Pendant::Update()
 {
-    Socket s;
-    s.call = Call::PendantCollision;
-    s.x = x;
-    s.y = y;
-    Notify(s);
+    Socket data{Call::PendantCollision, x, y};
+    NotifyEvent(EventType::Collision, data);
 }
 
 void Pendant::Render()

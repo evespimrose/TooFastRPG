@@ -20,6 +20,7 @@ protected:
     GameFile gamefile = {};
 
 public:
+    State(shared_ptr<EventManager> em) : Subject(em) {}
     virtual ~State() = default;
     virtual void HandleInput() = 0;
     virtual void Update() = 0;

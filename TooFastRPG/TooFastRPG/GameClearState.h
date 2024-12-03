@@ -10,7 +10,7 @@ private:
 
 
 public:
-    GameClearState() 
+    GameClearState(shared_ptr<EventManager> em) : State(em)
     {
         system("cls");
         frontBuffer.resize(3);

@@ -1,5 +1,13 @@
 #include "MainMenuState.h"
 
+MainMenuState::MainMenuState(shared_ptr<EventManager> em)
+    : State(em)
+{
+    system("cls");
+    frontBuffer.resize(3);
+    backBuffer.resize(3);
+}
+
 MainMenuState::~MainMenuState() {}
 
 void MainMenuState::HandleInput()

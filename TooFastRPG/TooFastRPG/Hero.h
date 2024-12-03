@@ -29,7 +29,7 @@ public:
 
     void Render();
 
-    void OnNotify(Socket s) override;
+    void OnNotify(const Socket& data) override;
     void setHide(double i) { canHide = i; }
     void setPrevCall(Call c) { prevCall = c; }
     void setHoly(int h) { holy = h; }
@@ -44,5 +44,6 @@ public:
 
     bool CanHeroMove(vector<vector<int>> m, int d) const;
 
+    string GetObserverName() const override { return "Hero"; }
 };
 

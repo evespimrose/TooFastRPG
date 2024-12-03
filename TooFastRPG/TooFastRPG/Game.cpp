@@ -2,10 +2,16 @@
 #include "MainMenuState.h"
 #include "GameState.h"
 #include "GameClearState.h"
+#include "GameConfig.h"
 
 
 void Game::Run()
 {
+    system(("mode con cols=" + 
+        to_string(GameConfig::WINDOW_WIDTH) + 
+        " lines=" + 
+        to_string(GameConfig::WINDOW_HEIGHT)).c_str());
+
     while (isRunning) {
         auto frameStart = chrono::high_resolution_clock::now();
 
@@ -21,8 +27,8 @@ void Game::Run()
         auto frameTime = chrono::high_resolution_clock::now() - frameStart;
         int frameDuration = chrono::duration_cast<chrono::milliseconds>(frameTime).count();
 
-        if (frameDelay > frameDuration) 
-            this_thread::sleep_for(chrono::milliseconds(frameDelay - frameDuration));
+        if (GameConfig::FRAME_DELAY > frameDuration) 
+            this_thread::sleep_for(chrono::milliseconds(GameConfig::FRAME_DELAY - frameDuration));
     }
 }
 
@@ -62,27 +68,24 @@ void Game::Update()
             int stage = 0;
 
             // 주민 리스트 초기화
-            vector<Resident*> residents =
-            {
-                new Resident(stage + 1, 22, 8),
-                new Resident(stage + 1, 5, 6),
-                new Resident(stage + 1, 20, 20),
-                new Resident(stage + 1, 30, 20)
-            };
+            vector<Resident*> residents;
+            auto em = GetEventManager();
+            residents.push_back(new Resident(em, stage + 1, 22, 8));
+            residents.push_back(new Resident(em, stage + 1, 5, 6));
+            residents.push_back(new Resident(em, stage + 1, 20, 20));
+            residents.push_back(new Resident(em, stage + 1, 30, 20));
 
-            Pendant* pendant = new Pendant(11, 2);
+            Pendant* pendant = new Pendant(em, 11, 2);
 
-            Portal* portal = new Portal(MAPMAXW - 2, 1);
+            Portal* portal = new Portal(em, MAPMAXW - 2, 1);
 
-            ChangeState(make_unique<GameState>(stage, hero, residents, pendant, portal));
+            ChangeState(make_unique<GameState>(GetEventManager(), stage, hero, residents, pendant, portal));
 
             break;
         }
         case Call::EnterMainMenuState:
         {
-            State* s = new MainMenuState();
-            ChangeState(make_unique<MainMenuState>());
-
+            ChangeState(make_unique<MainMenuState>(GetEventManager()));
             break;
         }
         case Call::EnterSavedGameState:
@@ -99,9 +102,9 @@ void Game::Update()
             {
                 if (vs[i] == "Stage")         stage = stoi(vs[i + 1]);
                 else if (vs[i] == "Hero")     h = new Hero(stoi(vs[i + 1]), stoi(vs[i + 2]), stoi(vs[i + 3]));
-                else if (vs[i] == "Resident") r.push_back(new Resident(stage + 1, stoi(vs[i + 1]), stoi(vs[i + 2])));
-                else if (vs[i] == "Pendant")  p = new Pendant(stoi(vs[i + 1]), stoi(vs[i + 2]));
-                else if (vs[i] == "Portal")   po = new Portal(stoi(vs[i + 1]), stoi(vs[i + 2]));
+                else if (vs[i] == "Resident")  r.push_back(new Resident(GetEventManager(), stage + 1, stoi(vs[i + 1]), stoi(vs[i + 2])));
+                else if (vs[i] == "Pendant")  p = new Pendant(GetEventManager(), stoi(vs[i + 1]), stoi(vs[i + 2]));
+                else if (vs[i] == "Portal")   po = new Portal(GetEventManager(), stoi(vs[i + 1]), stoi(vs[i + 2]));
                 else if (vs[i] == "Map")
                 {
                     for (int j = 0; j < MAPMAXH; ++j)
@@ -115,7 +118,7 @@ void Game::Update()
                 }
             }
 
-            ChangeState(make_unique<GameState>(stage, h, r, p, po));
+            ChangeState(make_unique<GameState>(GetEventManager(), stage, h, r, p, po));
             break;
         }
         case Call::EnterNextStageGameState:
@@ -134,63 +137,63 @@ void Game::Update()
                 GameFile gf = currentState->getGameFile();
                 h = new Hero(1, 1, gf.h->getHoly());
 
-                r.push_back(new Resident(stage + 1, 6, 22));
-                r.push_back(new Resident(stage + 1, 5, 6));
-                r.push_back(new Resident(stage + 1, 28, 20));
-                r.push_back(new Resident(stage + 1, 35, 20));
-                r.push_back(new Resident(stage + 1, 4, 16));
+                r.push_back(new Resident(GetEventManager(), stage + 1, 6, 22));
+                r.push_back(new Resident(GetEventManager(), stage + 1, 5, 6));
+                r.push_back(new Resident(GetEventManager(), stage + 1, 28, 20));
+                r.push_back(new Resident(GetEventManager(), stage + 1, 35, 20));
+                r.push_back(new Resident(GetEventManager(), stage + 1, 4, 16));
 
-                p = new Pendant(6, 6);
-                po = new Portal(MAPMAXW - 2, MAPMAXH - 2);
+                p = new Pendant(GetEventManager(), 6, 6);
+                po = new Portal(GetEventManager(), MAPMAXW - 2, MAPMAXH - 2);
 
-                ChangeState(make_unique<GameState>(stage, h, r, p, po));
+                ChangeState(make_unique<GameState>(GetEventManager(), stage, h, r, p, po));
                 break;
             }
             case 2:
             {
                 GameFile gf = currentState->getGameFile();
                 h = new Hero(MAPMAXW - 2, 1, gf.h->getHoly());
-                r.push_back(new Resident(stage + 1, 6, 22));
-                r.push_back(new Resident(stage + 1, 5, 6));
-                r.push_back(new Resident(stage + 1, 28, 20));
-                r.push_back(new Resident(stage + 1, 35, 20));
-                r.push_back(new Resident(stage + 1, 4, 16));
-                r.push_back(new Resident(stage + 1, 6, 10));
-                r.push_back(new Resident(stage + 1, 2, 20));
-                p = new Pendant(15, 15);
-                po = new Portal(1, MAPMAXH - 2);
+                r.push_back(new Resident(GetEventManager(), stage + 1, 6, 22));
+                r.push_back(new Resident(GetEventManager(), stage + 1, 5, 6));
+                r.push_back(new Resident(GetEventManager(), stage + 1, 28, 20));
+                r.push_back(new Resident(GetEventManager(), stage + 1, 35, 20));
+                r.push_back(new Resident(GetEventManager(), stage + 1, 4, 16));
+                r.push_back(new Resident(GetEventManager(), stage + 1, 6, 10));
+                r.push_back(new Resident(GetEventManager(), stage + 1, 2, 20));
+                p = new Pendant(GetEventManager(), 15, 15);
+                po = new Portal(GetEventManager(), 1, MAPMAXH - 2);
 
-                ChangeState(make_unique<GameState>(stage, h, r, p, po));
+                ChangeState(make_unique<GameState>(GetEventManager(), stage, h, r, p, po));
                 break;
             }
             case 3:
             {
                 GameFile gf = currentState->getGameFile();
                 h = new Hero(MAPMAXW - 2, MAPMAXH - 2, gf.h->getHoly());
-                r.push_back(new Resident(stage + 1, 22, 8));
-                r.push_back(new Resident(stage + 1, 5, 6));
-                r.push_back(new Resident(stage + 1, 20, 20));
-                r.push_back(new Resident(stage + 1, 35, 20));
-                r.push_back(new Resident(stage + 1, 4, 16));
-                r.push_back(new Resident(stage + 1, 6, 10));
-                r.push_back(new Resident(stage + 1, 11, 20));
-                r.push_back(new Resident(stage + 1, 30, 30));
-                r.push_back(new Resident(stage + 1, 22, 7));
-                r.push_back(new Resident(stage + 1, 15, 16));
-                r.push_back(new Resident(stage + 1, 26, 10));
-                r.push_back(new Resident(stage + 1, 31, 20));
-                r.push_back(new Resident(stage + 1, 30, 10));
-                r.push_back(new Resident(stage + 1, 22, 17));
-                p = new Pendant(20, 30);
-                po = new Portal(1, 1);
+                r.push_back(new Resident(GetEventManager(), stage + 1, 22, 8));
+                r.push_back(new Resident(GetEventManager(), stage + 1, 5, 6));
+                r.push_back(new Resident(GetEventManager(), stage + 1, 20, 20));
+                r.push_back(new Resident(GetEventManager(), stage + 1, 35, 20));
+                r.push_back(new Resident(GetEventManager(), stage + 1, 4, 16));
+                r.push_back(new Resident(GetEventManager(), stage + 1, 6, 10));
+                r.push_back(new Resident(GetEventManager(), stage + 1, 11, 20));
+                r.push_back(new Resident(GetEventManager(), stage + 1, 30, 30));
+                r.push_back(new Resident(GetEventManager(), stage + 1, 22, 7));
+                r.push_back(new Resident(GetEventManager(), stage + 1, 15, 16));
+                r.push_back(new Resident(GetEventManager(), stage + 1, 26, 10));
+                r.push_back(new Resident(GetEventManager(), stage + 1, 31, 20));
+                r.push_back(new Resident(GetEventManager(), stage + 1, 30, 10));
+                r.push_back(new Resident(GetEventManager(), stage + 1, 22, 17));
+                p = new Pendant(GetEventManager(), 20, 30);
+                po = new Portal(GetEventManager(), 1, 1);
 
-                ChangeState(make_unique<GameState>(stage, h, r, p, po));
+                ChangeState(make_unique<GameState>(GetEventManager(), stage, h, r, p, po));
                 break;
             }
             case 4:
             {
-                State* s = new GameClearState();
-                ChangeState(make_unique<GameClearState>());
+                State* s = new GameClearState(GetEventManager());
+                ChangeState(make_unique<GameClearState>(GetEventManager()));
                 break;
             }
             default:

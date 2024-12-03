@@ -1,5 +1,6 @@
 #pragma once
 #include "State.h"
+#include <memory>
 
 class MainMenuState : public State
 {
@@ -9,12 +10,7 @@ private:
     
 
 public:
-    MainMenuState() 
-    {
-        system("cls");
-        frontBuffer.resize(1);
-        backBuffer.resize(1);
-    }
+    MainMenuState(shared_ptr<EventManager> em = nullptr);
     ~MainMenuState();
 
     void HandleInput() override;

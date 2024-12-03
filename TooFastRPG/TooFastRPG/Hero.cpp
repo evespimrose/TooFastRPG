@@ -1,4 +1,5 @@
 #include "Hero.h"
+#include "GameConfig.h"
 
 void Hero::HandleInput(vector<vector<int>> m)
 {
@@ -46,7 +47,7 @@ void Hero::HandleInput(vector<vector<int>> m)
     else
         hide_Right = true;
 
-    if (GetAsyncKeyState(VK_SHIFT) & 0x8000)
+    if (GetAsyncKeyState(GameConfig::PORTAL_KEY) & 0x8000)
         prevCall = Call::PortalCollision;
 
     if (hide_Up && hide_Down && hide_Left && hide_Right)
@@ -56,7 +57,7 @@ void Hero::HandleInput(vector<vector<int>> m)
 void Hero::Update()
 {
     if (isHide && canHide > 0)
-        canHide = canHide - ((double)100 / (double)60);
+        canHide -= GameConfig::HIDE_DECREASE_RATE;
 
     if (canHide <= 0) 
         canHide = 0;
@@ -68,23 +69,23 @@ void Hero::Render()
     cout << "배리어 : " << holy << "개                                                                \n";
 }
 
-void Hero::OnNotify(Socket s)
+void Hero::OnNotify(const Socket& data)
 {
-    if (s.call != Call::None)
+    if (data.call != Call::None)
     {
-        if (s.call == Call::EnterGameState) 
+        if (data.call == Call::EnterGameState) 
             int a = 0;
-        else if (s.call == Call::ResidentCollision && x == s.x && y == s.y)
+        else if (data.call == Call::ResidentCollision && x == data.x && y == data.y)
         {
-            isCollision = x == s.x && y == s.y ? true : false;
-            prevCall = x == s.x && y == s.y ? Call::ResidentCollision : Call::None;
+            isCollision = x == data.x && y == data.y ? true : false;
+            prevCall = x == data.x && y == data.y ? Call::ResidentCollision : Call::None;
         }
-        else if (s.call == Call::PendantCollision && x == s.x && y == s.y)
+        else if (data.call == Call::PendantCollision && x == data.x && y == data.y)
         {
             holy++;
             prevCall = Call::PendantCollision;
         }
-        else if (s.call == Call::PortalCollision && x == s.x && y == s.y)
+        else if (data.call == Call::PortalCollision && x == data.x && y == data.y)
             prevCall = Call::PortalCollision;
     }
 }
