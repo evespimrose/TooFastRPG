@@ -4,12 +4,17 @@
 class MainMenuState : public State
 {
 private:
-    vector<string>* frontBuffer = {};
-    vector<string>* backBuffer = {};
+    vector<string> frontBuffer;
+    vector<string> backBuffer;
     
 
 public:
-    MainMenuState();
+    MainMenuState() 
+    {
+        system("cls");
+        frontBuffer.resize(1);
+        backBuffer.resize(1);
+    }
     ~MainMenuState();
 
     void HandleInput() override;

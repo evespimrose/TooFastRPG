@@ -12,9 +12,7 @@ int main()
 
     srand(time(NULL));
 
-    MainMenuState* mainMenu = new MainMenuState();
-    
-    Game game(mainMenu);
+    Game game(make_unique<MainMenuState>());
 
     // 게임 루프 실행
     game.Run();

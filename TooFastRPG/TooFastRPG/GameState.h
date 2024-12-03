@@ -1,10 +1,14 @@
 #pragma once
 #include "State.h"
+#include <memory>
 #include "Hero.h"
 #include "Resident.h"
 #include "Pendant.h"
 #include "Portal.h"
 
+class SaveManager;
+class CollisionManager;
+class GameRenderer;
 
 class GameState : public State
 {
@@ -17,6 +21,10 @@ private:
     vector<vector<string>> frontBuffer = {};
     vector<vector<string>> backBuffer = {};
     vector<vector<int>> mapBuffer = {};
+
+    unique_ptr<GameRenderer> renderer;
+    unique_ptr<CollisionManager> collisionManager;
+    unique_ptr<SaveManager> saveManager;
 
 public:
     GameState(int s, Hero* hero, vector<Resident*> residents, Pendant* pendant, Portal* portal);
@@ -47,3 +55,17 @@ public:
     int getStage() { return stage; }
 };
 
+class GameRenderer 
+{
+    void Render(const GameState& state);
+};
+
+class CollisionManager 
+{
+    void CheckCollisions(GameState& state);
+};
+
+class SaveManager 
+{
+    void SaveGame(const GameState& state);
+};

@@ -1,26 +1,24 @@
 #pragma once
 #include "stdafx.h"
-#include "GameState.h"
-#include "MainMenuState.h"
-#include "GameClearState.h"
-
+#include "State.h"
+#include <memory>
 
 class Game : public Observer
 {
 private:
     bool isRunning;
-    State* currentState;
+    unique_ptr<State> currentState;
     const int FPS = 60;
     const int frameDelay = 1000 / FPS;
 
 public:
-    Game(State* initialState) : currentState(initialState), isRunning(true) {}
+    Game(unique_ptr<State> initialState) : currentState(move(initialState)), isRunning(true) {}
 
     void Run();
 
     void Stop();
 
-    void ChangeState(State* newState);
+    void ChangeState(unique_ptr<State> newState);
 
     void Update();
 

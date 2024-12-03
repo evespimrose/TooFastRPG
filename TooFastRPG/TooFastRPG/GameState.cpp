@@ -22,7 +22,6 @@ GameState::GameState(int s, Hero* h, vector<Resident*> r, Pendant* p, Portal* po
     pendant->AddObserver(hero);
 
     portal->AddObserver(hero);
-
 }
 
 GameState::GameState(int s, Hero* h, vector<Resident*> r, Pendant* p, Portal* po, vector<vector<int>> map) : hero(h), residents(r), pendant(p), portal(po), mapBuffer(map)
@@ -48,9 +47,8 @@ GameState::GameState(int s, Hero* h, vector<Resident*> r, Pendant* p, Portal* po
 void GameState::HandleInput() 
 {
     if (GetAsyncKeyState(VK_F1) & 0x8000)
-    {
         SaveFile();
-    }
+
     hero->HandleInput(mapBuffer);
 }
 
@@ -69,7 +67,6 @@ void GameState::Update()
         mapBuffer[hero->getY()][hero->getX()] = 1;
 
     Collision();
-
 }
 
 void GameState::Render() 
@@ -81,19 +78,14 @@ void GameState::Render()
     for (auto& i : backBuffer)
     {
         for (auto& j : i)
-        {
             cout << j;
-        }
         cout << "\n";
     }
 
     swap(frontBuffer, backBuffer);
 
     for (auto& i : backBuffer)
-    {
         fill(i.begin(), i.end(), ' ');
-    }
-    //fill(backBuffer.begin(), backBuffer.end(), ' ');
 
     hero->Render();
 
@@ -147,6 +139,7 @@ void GameState::SaveFile()
 
     vs.push_back("Map");
     num++;
+
     for(auto &i : mapBuffer)
         for (auto& j : i)
         {
@@ -155,12 +148,15 @@ void GameState::SaveFile()
         }
 
     vector<string>::iterator iter = vs.begin();
+
     vs.insert(iter, to_string(num));
 
     // output to json file
     ofstream output_file("output.txt");
+
     for (auto& i : vs)
         output_file << i << endl;
+
     output_file.close();
 }
 
@@ -171,7 +167,6 @@ void GameState::InitSaveFile()
     ofstream output_file("output.txt");
     output_file << num << endl;
     output_file.close();
-
 }
 
 void GameState::DrawSceneToBackBuffer()
@@ -216,9 +211,7 @@ void GameState::Collision()
     if (c == Call::ResidentCollision)
     {
         if (hero->getHoly() > 0)
-        {
             hero->setHoly(hero->getHoly() - 1);
-        }
         else
         {
             InitSaveFile();

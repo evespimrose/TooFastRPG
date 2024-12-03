@@ -1,15 +1,21 @@
 #pragma once
 #include "State.h"
+#include <memory>
 
 class GameClearState : public State
 {
 private:
-    vector<string>* frontBuffer = {};
-    vector<string>* backBuffer = {};
+    vector<string> frontBuffer;
+    vector<string> backBuffer;
 
 
 public:
-    GameClearState();
+    GameClearState() 
+    {
+        system("cls");
+        frontBuffer.resize(3);
+        backBuffer.resize(3);
+    }
 
     void HandleInput() override;
     void Update() override;
@@ -26,7 +32,6 @@ public:
         ofstream output_file("output.txt");
         output_file << num << endl;
         output_file.close();
-
     }
 };
 

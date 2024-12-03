@@ -16,10 +16,20 @@
 
 using namespace std;
 
-#define MAPMAXW 40
-#define MAPMAXH 40
-#define ARROW 224
-#define RESIDENTRANDOM 4
+struct GameConfig 
+{
+    static constexpr int MAP_MAX_W = 40;
+    static constexpr int MAP_MAX_H = 40;
+    static constexpr int ARROW = 224;
+    static constexpr int RESIDENT_RANDOM = 4;
+    static constexpr int FPS = 60;
+    static constexpr int FRAME_DELAY = 1000 / FPS;
+};
+
+#define ARROW GameConfig::ARROW
+#define MAPMAXW GameConfig::MAP_MAX_W
+#define MAPMAXH GameConfig::MAP_MAX_H
+#define RESIDENTRANDOM GameConfig::RESIDENT_RANDOM
 
 enum
 {

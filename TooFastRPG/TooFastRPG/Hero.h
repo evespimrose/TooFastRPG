@@ -42,7 +42,7 @@ public:
     bool getCanHide() { return canHide; }
     Call getPrevCall() { return prevCall; }
 
-    bool CanHeroMove(vector<vector<int>> m, int d);
+    bool CanHeroMove(vector<vector<int>> m, int d) const;
 
 };
 

@@ -2,18 +2,16 @@
 #include "stdafx.h"
 #include "Observer.h"
 #include "Hero.h"
-#include "Resident.h"
-#include "Pendant.h"
-#include "Portal.h"
+#include <memory>
 
-
-extern struct GameFile
-{
+// GameFile 구조체를 먼저 정의
+struct GameFile {
     int stage = {};
     Hero* h = {};
 };
 
-class State : public Subject
+// 기본 State 인터페이스
+class State : public Subject 
 {
 protected:
     Call call = Call::None;
@@ -22,86 +20,20 @@ protected:
     GameFile gamefile = {};
 
 public:
+    virtual ~State() = default;
     virtual void HandleInput() = 0;
     virtual void Update() = 0;
     virtual void Render() = 0;
+    virtual void SaveFile() = 0;
 
+    // 공통 기능들
     void SetStage(int i) { stage = i; }
-
     Call getCall() { return call; }
     int getStage() { return stage; }
     GameFile getGameFile() { return gamefile; }
-
-    void CallBack()
-    {
-        cout << "Call : ";
-        switch (call)
-        {
-        case Call::None:
-            cout << "None\n";
-            break;
-        case Call::EnterGameState:
-            cout << "EnterGameState                                            \n";
-
-            break;
-        case Call::EnterMainMenuState:
-            cout << "EnterMainMenuState                                        \n";
-
-            break;
-        case Call::PendantCollision:
-            cout << "PendantCollision                                        \n";
-
-            break;
-        case Call::ResidentCollision:
-            cout << "ResidentCollision                                        \n";
-
-            break;
-        case Call::PortalCollision:
-            cout << "PortalCollision                                        \n";
-
-            break;
-        case Call::EnterSavedGameState:
-            cout << "EnterSavedGameState                                        \n";
-
-            break;
-        case Call::EnterNextStageGameState:
-            cout << "EnterNextStageGameState                                        \n";
-
-            break;
-        default:
-            break;
-        }
-    }
-
-    bool parsingSaveFile(vector<string>& vs)
-    {
-        ifstream file;
-
-        file.open("output.txt", ifstream::in);
-
-        string line;
-        getline(file, line);
-
-        int num = stoi(line);
-
-        if (num == 0)
-        {
-            return false;
-        }
-
-
-        for (int i = 0; i < num; ++i)
-        {
-            getline(file, line);
-            vs.push_back(line);
-        }
-
-        file.close();
-        return true;
-    }
-
-    virtual void SaveFile() = 0;
-
     vector<string> getFile() { return vs; }
+
+    //void MyCallBack();  
+    bool parsingSaveFile(vector<string>& vs);
 };
 

@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "MainMenuState.h"
 #include "GameState.h"
+#include "GameClearState.h"
 
 
 void Game::Run()
@@ -30,9 +31,9 @@ void Game::Stop()
     isRunning = false;
 }
 
-void Game::ChangeState(State* newState)
+void Game::ChangeState(unique_ptr<State> newState)
 {
-    currentState = newState;
+    currentState = move(newState);
 }
 
 
@@ -73,16 +74,14 @@ void Game::Update()
 
             Portal* portal = new Portal(MAPMAXW - 2, 1);
 
-            GameState* gamestate = new GameState(stage, hero, residents, pendant, portal);
-
-            ChangeState(gamestate);
+            ChangeState(make_unique<GameState>(stage, hero, residents, pendant, portal));
 
             break;
         }
         case Call::EnterMainMenuState:
         {
             State* s = new MainMenuState();
-            ChangeState(s);
+            ChangeState(make_unique<MainMenuState>());
 
             break;
         }
@@ -116,8 +115,7 @@ void Game::Update()
                 }
             }
 
-            State* gamestate = new GameState(stage, h, r, p, po);
-            ChangeState(gamestate);
+            ChangeState(make_unique<GameState>(stage, h, r, p, po));
             break;
         }
         case Call::EnterNextStageGameState:
@@ -145,8 +143,7 @@ void Game::Update()
                 p = new Pendant(6, 6);
                 po = new Portal(MAPMAXW - 2, MAPMAXH - 2);
 
-                State* gamestate = new GameState(stage, h, r, p, po);
-                ChangeState(gamestate);
+                ChangeState(make_unique<GameState>(stage, h, r, p, po));
                 break;
             }
             case 2:
@@ -163,8 +160,7 @@ void Game::Update()
                 p = new Pendant(15, 15);
                 po = new Portal(1, MAPMAXH - 2);
 
-                State* gamestate = new GameState(stage, h, r, p, po);
-                ChangeState(gamestate);
+                ChangeState(make_unique<GameState>(stage, h, r, p, po));
                 break;
             }
             case 3:
@@ -188,14 +184,13 @@ void Game::Update()
                 p = new Pendant(20, 30);
                 po = new Portal(1, 1);
 
-                State* gamestate = new GameState(stage, h, r, p, po);
-                ChangeState(gamestate);
+                ChangeState(make_unique<GameState>(stage, h, r, p, po));
                 break;
             }
             case 4:
             {
                 State* s = new GameClearState();
-                ChangeState(s);
+                ChangeState(make_unique<GameClearState>());
                 break;
             }
             default:

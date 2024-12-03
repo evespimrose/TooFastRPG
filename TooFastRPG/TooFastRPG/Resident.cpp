@@ -28,7 +28,8 @@ void Resident::Move(vector<vector<int>> v)
     {
         moveCountX--;
 
-        if (v[y][x + directionX] == 1) directionX *= -1;      // 벽 및 장애물 충돌 시 방향 전환
+        if (v[y][x + directionX] == 1) 
+            directionX *= -1;      // 벽 및 장애물 충돌 시 방향 전환
 
         x += directionX;
     }
@@ -39,7 +40,8 @@ void Resident::Move(vector<vector<int>> v)
     {
         moveCountY--;
 
-        if (v[y + directionY][x] == 1) directionY *= -1;
+        if (v[y + directionY][x] == 1) 
+            directionY *= -1;
 
         y += directionY;
     }

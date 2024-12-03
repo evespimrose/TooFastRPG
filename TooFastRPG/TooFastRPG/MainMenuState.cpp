@@ -1,18 +1,6 @@
 #include "MainMenuState.h"
 
-MainMenuState::MainMenuState()
-{
-    system("cls");
-    backBuffer = new vector<string>(1);
-    frontBuffer = new vector<string>(1);
-
-}
-
-MainMenuState::~MainMenuState()
-{
-    delete[] backBuffer;
-    delete[] frontBuffer;
-}
+MainMenuState::~MainMenuState() {}
 
 void MainMenuState::HandleInput()
 {
@@ -23,10 +11,9 @@ void MainMenuState::HandleInput()
     case 32:
     {
         if (parsingSaveFile(vs))
-        {
             call = Call::EnterSavedGameState;
-        }
-        else cout << "불러올 파일이 없습니다!\n";
+        else 
+            cout << "불러올 파일이 없습니다!\n";
         break;
     }
         
@@ -48,25 +35,18 @@ void MainMenuState::Render()
 
     cout << "\033[H";  // 콘솔 커서를 최상단으로 이동
 
-    for (auto& i : *backBuffer)
-    {
-        cout << i;
-        cout << "\n";
-    }
+    for (auto& i : backBuffer)
+        cout << i << "\n";
 
     swap(frontBuffer, backBuffer);
 
-    for (auto& i : *backBuffer)
-    {
+    for (auto& i : backBuffer)
         i = " ";
-    }
-
-    //CallBack();
 }
 
 void MainMenuState::DrawSceneToBackBuffer()
 {
     string s = "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n                제목..은 마왕성에 가고 싶습니다로 하겠습니다. 근데..좀비..를 곁들인\n\n\n\n                                         새 게임 시작 Enter\n\n                                  저장된 게임 불러오기 Space Bar\n\n                                           게임 종료 Esc";
-    *backBuffer->begin() = s;
+    backBuffer[0] = s;
 }
 

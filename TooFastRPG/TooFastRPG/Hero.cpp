@@ -8,7 +8,7 @@ void Hero::HandleInput(vector<vector<int>> m)
     {
         hide_Up = false;
         isHide = false;
-        if(CanHeroMove(m, ARROW_UP))
+        if(CanHeroMove(m, ARROW_UP)) 
             y--;
     }
     else
@@ -18,7 +18,7 @@ void Hero::HandleInput(vector<vector<int>> m)
     {
         hide_Down = false;
         isHide = false;
-        if (CanHeroMove(m, ARROW_DOWN))
+        if (CanHeroMove(m, ARROW_DOWN)) 
             y++;
     }
     else
@@ -29,7 +29,7 @@ void Hero::HandleInput(vector<vector<int>> m)
         hide_Left = false;
         isHide = false;
 
-        if (CanHeroMove(m, ARROW_LEFT))
+        if (CanHeroMove(m, ARROW_LEFT)) 
             x--;
     }
     else
@@ -40,31 +40,25 @@ void Hero::HandleInput(vector<vector<int>> m)
         hide_Right = false;
         isHide = false;
 
-        if (CanHeroMove(m, ARROW_RIGHT))
+        if (CanHeroMove(m, ARROW_RIGHT)) 
             x++;
     }
     else
         hide_Right = true;
 
     if (GetAsyncKeyState(VK_SHIFT) & 0x8000)
-    {
         prevCall = Call::PortalCollision;
-    }
 
     if (hide_Up && hide_Down && hide_Left && hide_Right)
-    {
-
         isHide = true;
-    }  
 }
 
 void Hero::Update()
 {
     if (isHide && canHide > 0)
-    {
         canHide = canHide - ((double)100 / (double)60);
-    }
-    if (canHide <= 0)
+
+    if (canHide <= 0) 
         canHide = 0;
 }
 
@@ -78,7 +72,8 @@ void Hero::OnNotify(Socket s)
 {
     if (s.call != Call::None)
     {
-        if (s.call == Call::EnterGameState) int a = 0;
+        if (s.call == Call::EnterGameState) 
+            int a = 0;
         else if (s.call == Call::ResidentCollision && x == s.x && y == s.y)
         {
             isCollision = x == s.x && y == s.y ? true : false;
@@ -90,35 +85,11 @@ void Hero::OnNotify(Socket s)
             prevCall = Call::PendantCollision;
         }
         else if (s.call == Call::PortalCollision && x == s.x && y == s.y)
-        {
             prevCall = Call::PortalCollision;
-        }
-
-
     }
-    /*switch (s.call)
-    {
-    case Call::None:
-        break;
-    case Call::EnterGameState:
-        break;
-    case Call::ResidentCollision:
-        isCollision = x == s.x && y == s.y ? true : false;
-        prevCall = Call::ResidentCollision;
-        break;
-    case Call::PendantCollision:
-        holy += x == s.x && y == s.y ? 1 : 0;
-        prevCall = Call::PendantCollision;
-        break;
-    case Call::PortalCollision:
-
-        break;
-    default:
-        break;
-    }*/
 }
 
-bool Hero::CanHeroMove(vector<vector<int>> m, int d)
+bool Hero::CanHeroMove(vector<vector<int>> m, int d) const
 {
     switch (d)
     {
