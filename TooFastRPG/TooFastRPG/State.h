@@ -29,9 +29,9 @@ public:
 
     // 공통 기능들
     void SetStage(int i) { stage = i; }
-    Call getCall() { return call; }
-    int getStage() { return stage; }
-    GameFile getGameFile() { return gamefile; }
+    Call getCall() const { return call; }
+    int getStage() const { return stage; }
+    GameFile getGameFile() const { return gamefile; }
     vector<string> getFile() { return vs; }
 
     //void MyCallBack();  

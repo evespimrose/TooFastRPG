@@ -22,6 +22,5 @@ public:
         observers[type].push_back(observer);
     }
 
-
-    void Notify(EventType type, const Socket& data);  // 선언만 남기고
+    void Notify(EventType type, const Socket& data);
 }; 
