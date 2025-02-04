@@ -10,6 +10,8 @@
 
 ![게임흐름도](https://github.com/user-attachments/assets/88b5c353-a17a-4bf6-8455-c80056d238b9)
 
+![게임플레이영상](https://www.youtube.com/watch?v=Hfz088rhSzA&ab_channel=%EC%95%94%EC%82%B4%EC%98%A4%EB%A6%AC)
+
 ## 기술적 요소
 
 - State 디자인 패턴을 활용한 게임 상태 관리
